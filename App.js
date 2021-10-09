@@ -7,7 +7,6 @@ export default function App() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   return (
-    <ImageBackground source={background} resizeMode="cover" style={styles.image}>
 
     <View style={styles.container}>
       <Image style={styles.stretch} source={logo}/>
@@ -43,7 +42,6 @@ export default function App() {
       </View>
       {/* <StatusBar style="auto" /> */}
     </View>
-    </ImageBackground>
 
   );
 }
@@ -83,8 +81,5 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff"
   },
-  image: {
-    flex: 1,
-    justifyContent: "center"
-  },
+
 });
