@@ -33,7 +33,7 @@ export default function LogIn({navigation}) {
             </View>
             <View style={styles.buttonCreate}>
                 <Button
-                    onPress={() => navigation.push('SignUp')}
+                    onPress={() => navigation.navigate('SignUp')}
                     title="Crear cuenta"
                     color="#000"
                     accessibilityLabel="Crear cuenta"
