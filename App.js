@@ -8,12 +8,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Payments from './views/Payments'
 import Restaurants from './views/Restaurants';
 import Profile from './views/Profile'
+import { Icon } from 'react-native-vector-icons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  loggedIn = false
+  loggedIn = true
 
   if (!loggedIn) {
     return (
@@ -28,9 +31,27 @@ export default function App() {
     return (
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="Restaurants" component={Restaurants} />
-          <Tab.Screen name="Payments" component={Payments} />
-          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Restaurants" component={Restaurants} options={{
+            title: "Restaurantes",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="restaurant" color={"black"} size={size} />
+            ),
+          }} />
+          <Tab.Screen name="Payments" component={Payments} options={{
+            title: "Pagos",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome name="money" color={"black"} size={size} />
+            ),
+          }} />
+          <Tab.Screen name="Profile" component={Profile} options={{
+            title: "Perfil",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="person" color={"black"} size={size} />
+            ),
+          }} />
         </Tab.Navigator>
       </NavigationContainer>
     )
