@@ -33,7 +33,6 @@ export default function App() {
           isLoading: false,
         };
       case 'LOGIN':
-        console.log("maria")
         return {
           ...prevState,
           token: action.token,
