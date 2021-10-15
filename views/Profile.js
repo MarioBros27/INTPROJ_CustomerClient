@@ -13,12 +13,11 @@ export default function Profile({ navigation }) {
 
             try {
                 let tokenT = await AsyncStorage.getItem('token');
-                console.log(tokenT)
                 setToken(tokenT)
             } catch (e) {
                 console.log(e);
             }
-            dispatch({ type: 'RETRIEVE_TOKEN', token: token });
+            // dispatch({ type: 'RETRIEVE_TOKEN', token: token });
         }, 0)
     }, [])
     return (
