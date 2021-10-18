@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Payments from './views/Payments'
 import Restaurants from './views/Restaurants';
+import Reservations from './views/Reservations';
 import Profile from './views/Profile'
 import Loading from './views/Loading'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -96,8 +97,8 @@ export default function App() {
       <NavigationContainer>
         {loginState.token !== null ? (
           <Tab.Navigator>
-            <Tab.Screen name="Restaurants" component={Restaurants} options={{
-              title: "Restaurantes",
+            <Tab.Screen name="Restaurants" component={Reservations} options={{ //Change back to Restaurants
+              title: "Reservations",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="restaurant" color={"black"} size={size} />
