@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Button } from 'react-native';
+import { StyleSheet, View, Text, Image, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import logo from '../assets/logo.png';
 
 export default function Reservations({navigation}) {
     const [titleText, setTitleText] = useState("Danil's Pizza");
-    const [descriptionText, setDescriptionText] = useState("Lorem Ipsum dolorem argentum potasium agenos dekimashita.");
+    const [username, setUsername] = useState("Daniel Nunez");
+    const [status, setStatus] = useState("In Process");
+    const [seats, setSeats] = useState(null);
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -45,13 +47,25 @@ export default function Reservations({navigation}) {
                 style={styles.stretch}
                 source={logo}
             />
-            <Text>{descriptionText}</Text>
+            <Text>Reservar a nombre de {username}</Text>
+            <Text>No. de personas: {seats}</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setSeats}
+                value={seats}
+                placeholder="No. de personas"
+                keyboardType="numeric"
+            />
+            <Text>Estado de la reservación: {status}</Text>
             <Text>{reservationDate}</Text>
             <View style ={{margin:20}}>
                 <Button title='Fecha' onPress={() => showMode('date')}/>
             </View>
             <View style ={{margin:20}}>
                 <Button title='Hora' onPress={() => showMode('time')}/>
+            </View>
+            <View style ={{margin:20}}>
+                <Button title='Reservar'/>
             </View>
             {show && (
                 <DateTimePicker
@@ -85,5 +99,11 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         resizeMode: 'contain'
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
     }
 });

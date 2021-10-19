@@ -97,8 +97,8 @@ export default function App() {
       <NavigationContainer>
         {loginState.token !== null ? (
           <Tab.Navigator>
-            <Tab.Screen name="Restaurants" component={Reservations} options={{ //Change back to Restaurants
-              title: "Reservations",
+            <Tab.Screen name="Restaurants" component={Restaurants} options={{
+              title: "Restaurantes",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="restaurant" color={"black"} size={size} />
