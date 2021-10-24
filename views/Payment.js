@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function Payments({navigation}) {
+export default function Payments({route,navigation}) {
+    const { bill } = route.params;
+
      return (
 
         <View style={styles.container}>
            
-            <Text>Hello Template</Text>
+            <Text>Hello Ricardo</Text>
         </View>
 
     );
