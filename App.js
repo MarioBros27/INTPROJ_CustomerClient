@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Payments from './views/Payment'
 import PagosNavigator from './views/PagosNavigator'
 import Restaurants from './views/Restaurants';
+import Reservations from './views/Reservations';
 import Profile from './views/Profile'
 import Loading from './views/Loading'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
