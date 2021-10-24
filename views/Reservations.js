@@ -59,10 +59,10 @@ export default function Reservations({navigation}) {
             <Text>Estado de la reservación: {status}</Text>
             <Text>{reservationDate}</Text>
             <View style ={{margin:20}}>
-                <Button title='Fecha' onPress={() => showMode('date')}/>
+                <Button title='Fecha de la reservación' onPress={() => showMode('date')}/>
             </View>
             <View style ={{margin:20}}>
-                <Button title='Hora' onPress={() => showMode('time')}/>
+                <Button title='Hora de la reservación' onPress={() => showMode('time')}/>
             </View>
             <View style ={{margin:20}}>
                 <Button title='Reservar'/>
