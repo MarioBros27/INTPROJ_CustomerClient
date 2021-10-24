@@ -9,11 +9,12 @@ import Restaurants from './views/Restaurants';
 import Profile from './views/Profile'
 import Loading from './views/Loading'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from './context';
 import axios from 'axios'
-
+import Orders from './views/Orders'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -95,26 +96,38 @@ export default function App() {
 
       <NavigationContainer>
         {loginState.token !== null ? (
-          <Tab.Navigator>
+          <Tab.Navigator
+          screenOptions={{
+            tabBarHideOnKeyboard: true,
+            tabBarActiveTintColor: "#fc6c27",
+            tabBarInactiveTintColor: "black"
+          }}>
             <Tab.Screen name="Restaurants" component={Restaurants} options={{
               title: "Restaurantes",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="restaurant" color={"black"} size={size} />
+                <MaterialCommunityIcons name="store" color={color} size={size} />
+              ),
+            }} />
+            <Tab.Screen name="Orders" component={Orders} options={{
+              title: "Ordenes",
+              tabBarShowLabel: false,
+              tabBarIcon: ({ color, size }) => (
+                <MaterialIcons name="restaurant" color={color} size={size} />
               ),
             }} />
             <Tab.Screen name="Payments" component={Payments} options={{
               title: "Pagos",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
-                <FontAwesome name="money" color={"black"} size={size} />
+                <FontAwesome name="money" color={color} size={size} />
               ),
             }} />
             <Tab.Screen name="Profile" component={Profile} options={{
               title: "Perfil",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="person" color={"black"} size={size} />
+                <MaterialIcons name="person" color={color} size={size} />
               ),
             }} />
           </Tab.Navigator>

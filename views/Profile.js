@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../context'
+import { QRCode } from 'react-native-custom-qr-codes-expo';
 
 
 export default function Profile({ navigation }) {
@@ -24,13 +25,18 @@ export default function Profile({ navigation }) {
 
         <View style={styles.container}>
 
-            <Text>{token}</Text>
+            {/* <Text>{token}</Text> */}
+            {token.length>0 &&
+            
+            <QRCode codeStyle='square' content={token} />}
+            <View style={styles.buttonContainer}>
             <Button
                 onPress={() => {  logOut()}}
                 title="Cerrar sesión"
                 color="red"
                 accessibilityLabel="Cerrar sesión"
             />
+            </View>
         </View>
 
     );
@@ -43,6 +49,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20
+    },
+    buttonContainer:{
+        marginTop:40 
     }
 
 });
