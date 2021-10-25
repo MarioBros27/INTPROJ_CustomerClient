@@ -1,22 +1,22 @@
 import React from 'react';
-import LogIn from './views/LogIn'
-import SignUp from './views/SignUp'
+import LogIn from './views/LogIn';
+import SignUp from './views/SignUp';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Payments from './views/Payment'
-import PagosNavigator from './views/PagosNavigator'
+import Payments from './views/Payment';
+import PagosNavigator from './views/PagosNavigator';
 import Restaurants from './views/Restaurants';
-import Reservations from './views/Reservations';
-import Profile from './views/Profile'
-import Loading from './views/Loading'
+import RestaurantsNavigator from './views/RestaurantsNavigator';
+import Profile from './views/Profile';
+import Loading from './views/Loading';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from './context';
-import axios from 'axios'
-import Orders from './views/Orders'
+import axios from 'axios';
+import Orders from './views/Orders';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -104,9 +104,10 @@ export default function App() {
             tabBarActiveTintColor: "#fc6c27",
             tabBarInactiveTintColor: "black"
           }}>
-            <Tab.Screen name="Restaurants" component={Restaurants} options={{
+            <Tab.Screen name="RestaurantsNavigator" component={RestaurantsNavigator} options={{
               title: "Restaurantes",
               tabBarShowLabel: false,
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="store" color={color} size={size} />
               ),

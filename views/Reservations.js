@@ -2,16 +2,33 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import logo from '../assets/logo.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Reservations({navigation}) {
-    const [titleText, setTitleText] = useState("Danil's Pizza");
+
+export default function Reservations({navigation, route}) {
+    const { restaurante } = route.params;
+
     const [username, setUsername] = useState("Daniel Nunez");
-    const [status, setStatus] = useState("In Process");
+    const [status, setStatus] = useState("Creando");
     const [seats, setSeats] = useState(null);
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [reservationDate, setReservationDate] = useState('Empty');
+    const [id, setId] = useState('');
+    React.useEffect(() => {
+        setTimeout(async () => {
+
+            try {
+                let tokenT = await AsyncStorage.getItem('token');
+                setId(tokenT)
+            } catch (e) {
+                console.log(e);
+            }
+        }, 0)
+    }, [])
+
+
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -40,7 +57,7 @@ export default function Reservations({navigation}) {
 
         <View style={styles.container}>
             <Text style={styles.titleText}>
-                {titleText}
+                {restaurante.name}
                 
             </Text>
             <Image
