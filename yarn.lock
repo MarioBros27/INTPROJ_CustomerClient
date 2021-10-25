@@ -4900,6 +4900,11 @@ react-native-custom-qr-codes-expo@^2.2.0:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-openpay@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-openpay/-/react-native-openpay-3.0.2.tgz#507ad1279fb15a88c2dd436440d450e04f3a39a0"
+  integrity sha512-QabhK8U0JvhIHWfv8TiqUfLGoIZhBVU5+t/g4hj8848oWDQWdR9C82ZTT6bVLGJYwMDrXzqqODaefxwTAgXx+w==
+
 react-native-safe-area-context@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.2.0.tgz#06113c6b208f982d68ab5c3cebd199ca93db6941"

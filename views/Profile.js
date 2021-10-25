@@ -18,7 +18,6 @@ export default function Profile({ navigation }) {
             } catch (e) {
                 console.log(e);
             }
-            // dispatch({ type: 'RETRIEVE_TOKEN', token: token });
         }, 0)
     }, [])
     return (
@@ -29,6 +28,14 @@ export default function Profile({ navigation }) {
             {token.length>0 &&
             
             <QRCode codeStyle='square' content={token} />}
+            <View style={styles.buttonContainer}>
+            <Button
+                onPress={() => {  navigation.navigate("Register")}}
+                title="Registrarse para pago digital"
+                color="gray"
+                accessibilityLabel="Cerrar sesión"
+            />
+            </View>
             <View style={styles.buttonContainer}>
             <Button
                 onPress={() => {  logOut()}}

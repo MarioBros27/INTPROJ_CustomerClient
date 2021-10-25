@@ -7,15 +7,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Payments from './views/Payment'
 import PagosNavigator from './views/PagosNavigator'
 import Restaurants from './views/Restaurants';
-import Profile from './views/Profile'
+import ProfileNavigator from './views/ProfileNavigator'
 import Loading from './views/Loading'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from './context';
 import axios from 'axios'
 import Orders from './views/Orders'
+import Reservaciones from './views/Reservaciones'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -110,7 +112,14 @@ export default function App() {
                 <MaterialCommunityIcons name="store" color={color} size={size} />
               ),
             }} />
-            <Tab.Screen name="Orders" component={Orders} options={{
+            <Tab.Screen name="Reservations" component={Reservaciones} options={{
+              title: "Reservaciones",
+              tabBarShowLabel: false,
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="calendar" color={color} size={size} />
+              ),
+            }} />
+            <Tab.Screen name="Ordenes" component={Orders} options={{
               title: "Ordenes",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
@@ -132,9 +141,10 @@ export default function App() {
                 <FontAwesome name="money" color={color} size={size} />
               ),
             }} />
-            <Tab.Screen name="Profile" component={Profile} options={{
+            <Tab.Screen name="ProfileNavigator" component={ProfileNavigator} options={{
               title: "Perfil",
               tabBarShowLabel: false,
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="person" color={color} size={size} />
               ),
