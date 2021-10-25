@@ -7,6 +7,7 @@ import { QRCode } from 'react-native-custom-qr-codes-expo';
 
 export default function Profile({ navigation }) {
     const [token, setToken] = React.useState("")
+    const [username, setUsername] = React.useState('Ricardo Luna Guerrero')
     const { logOut } = React.useContext(AuthContext);
 
     React.useEffect(() => {
@@ -25,8 +26,8 @@ export default function Profile({ navigation }) {
         <View style={styles.container}>
 
             {/* <Text>{token}</Text> */}
+            <Text style={styles.title}>{username}</Text>
             {token.length>0 &&
-            
             <QRCode codeStyle='square' content={token} />}
             <View style={styles.buttonContainer}>
             <Button
@@ -59,6 +60,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         marginTop:40 
+    },
+    title: {
+        fontSize: 18,
+        marginBottom: 2,
+        fontWeight: "bold"
     }
-
 });
