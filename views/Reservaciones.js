@@ -6,7 +6,7 @@ export default function Template({navigation}) {
 
         <View style={styles.container}>
            
-            <Text>No puedes ver el menu porque no has hecho Check In</Text>
+            <Text>Hello Template</Text>
         </View>
 
     );
