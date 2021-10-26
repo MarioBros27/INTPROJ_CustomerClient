@@ -4,7 +4,7 @@ import SignUp from './views/SignUp';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Payments from './views/Payment';
+import Payments from './views/Payments';
 import PagosNavigator from './views/PagosNavigator';
 import Reservaciones from './views/Reservaciones';
 import RestaurantsNavigator from './views/RestaurantsNavigator';
@@ -134,7 +134,7 @@ export default function App() {
                 <FontAwesome name="money" color={color} size={size} />
               ),
             }} /> */}
-            <Tab.Screen name="PagosNavigator" component={PagosNavigator} options={{
+            <Tab.Screen name="PagosNavigator" component={Payments} options={{
               title: "Pagos New",
               tabBarShowLabel: false,
               headerShown: false,

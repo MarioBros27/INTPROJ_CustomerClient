@@ -6,14 +6,26 @@ import axios from 'axios';
 export default function Payments({navigation}) {
     
     const [ response, setResponse ] = useState();
+    const [ secretPaymentIntent, setSecretPaymentIntent ] = useState('');
     const [ makePayment, setMakePayment ] = useState(false);
     const [ paymentStatus, setPaymentStatus ] = useState('');
-    const STRIPE_PK = 'pk_test_51JoHBmKi9ZxKjuTBifGMIhuaPGeA4Hv229NBOLrmimdCjyXTq3gIjb0wEmqpxySR3dqB3o4aHsQQ4nDn5aqBl8rq00qCxrp7Vp';
+    const STRIPE_PK = 'pk_test_51JoDVgBMpX7MLTCT4nyPsnolEAR0drDCL8p0HIYk7CSa5xCwwis7klQtKP5i6D9qvrjDNoIXJZhtFjkLDtIFmmKS00CoYQb4um';
+    const ACCOUNT_ID = 'acct_1JodkYPbYWr4VdbL';
 
+
+    useEffect(() => {
+        axios.post('http://192.168.1.76:3000/processPayments', {
+            amount: 5000,
+            stripeAccount: ACCOUNT_ID
+        })
+        .then((response) => {
+            setSecretPaymentIntent(response["data"]["client_secret"])})
+        .catch(error => alert(error));
+    }, [])
     const cardInfo = {
         id: "Secjsdlanfasfdnadf5as6df245",
         description: "Tshirt",
-        amount: 1100
+        amount: 7800
     }
 
     const product = cardInfo.description;
@@ -187,7 +199,9 @@ export default function Payments({navigation}) {
             </div>
             
             <script>
-                var stripe = Stripe('${STRIPE_PK}');
+                var stripe = Stripe('${STRIPE_PK}', {
+                    stripeAccount: '${ACCOUNT_ID}'
+                });
                 var elements = stripe.elements();
         
         
@@ -239,7 +253,7 @@ export default function Payments({navigation}) {
                         }
                     });
                     
-                    card.mount('#card-element');
+                    // card.mount('#card-element');
                     
                     /**
                      * Payment Request Element
@@ -263,16 +277,23 @@ export default function Payments({navigation}) {
                             address_state: undefined,
                             address_zip: undefined,
                         };
-        
-                        stripe.createToken(card, additionalData).then(function(result) {
                         
-                        console.log(result);
-                        if (result.token) {
-                            window.postMessage(JSON.stringify(result));
-                        } else {
-                            window.postMessage(JSON.stringify(result));
-                        }
-                    });
+                        
+                        stripe.confirmCardPayment('${secretPaymentIntent}', {
+                            payment_method: {
+                                card: card
+                            }
+                        })
+                        .then(response => {
+                            if(response.error) {
+                                alert(response.error.message);
+                            } else {
+                                if (response.paymentIntent.status === 'succeeded') {
+                                    alert(response.paymentIntent);
+                                }
+                            };
+                        })
+                        .catch(error => alert(error))
                     })
             </script>
         </body>
