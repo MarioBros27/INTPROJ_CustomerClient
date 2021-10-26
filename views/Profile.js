@@ -30,12 +30,12 @@ export default function Profile({ navigation }) {
             {token.length>0 &&
             <QRCode codeStyle='square' content={token} />}
             <View style={styles.buttonContainer}>
-            <Button
+            {/* <Button
                 onPress={() => {  navigation.navigate("Register")}}
                 title="Registrarse para pago digital"
                 color="gray"
                 accessibilityLabel="Cerrar sesión"
-            />
+            /> */}
             </View>
             <View style={styles.buttonContainer}>
             <Button

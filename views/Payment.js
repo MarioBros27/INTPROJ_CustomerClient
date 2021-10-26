@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
+import PaymentStripe from './PaymentStripe';
 
-export default function Payment({ navigation }) {
+export default function Payment({ route, navigation }) {
+    const { bill } = route.params;
+
     const [month, setMonth] = React.useState("")
     const [year, setYear] = React.useState("")
     const [cvv, setCVV] = React.useState("")
@@ -23,7 +26,8 @@ export default function Payment({ navigation }) {
                     />
                 </View>
                 <Text style={styles.label}>Final: $240</Text>
-                <Text style={styles.strongLabel}>Nombre como en la tarjeta</Text>
+                {/* <PaymentStripe></PaymentStripe> */}
+                {/* <Text style={styles.strongLabel}>Nombre como en la tarjeta</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setNames}
@@ -59,16 +63,16 @@ export default function Payment({ navigation }) {
                         placeholder="CVV"
                     />
 
-                </View>
+                </View>*/}
                 <View style={styles.buttonContainer}>
                     <Button
                         onPress={() => {
-
+                            navigation.navigate("PagarStripe")
                         }}
-                        title="Pagar"
-                        color="green"
+                        title="Pagar en línea con tarjeta"
+                        color="purple"
                     />
-                </View>
+                </View> 
             </View>
         </ScrollView>
     );

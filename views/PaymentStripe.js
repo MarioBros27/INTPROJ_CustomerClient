@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 import axios from 'axios';
 
-export default function Payments({navigation}) {
+export default function PaymentStripe({navigation}) {
     
     const [ response, setResponse ] = useState();
     const [ secretPaymentIntent, setSecretPaymentIntent ] = useState('');
@@ -13,15 +13,15 @@ export default function Payments({navigation}) {
     const ACCOUNT_ID = 'acct_1JodkYPbYWr4VdbL';
 
 
-    useEffect(() => {
-        axios.post('http://192.168.1.76:3000/processPayments', {
-            amount: 5000,
-            stripeAccount: ACCOUNT_ID
-        })
-        .then((response) => {
-            setSecretPaymentIntent(response["data"]["client_secret"])})
-        .catch(error => alert(error));
-    }, [])
+    // useEffect(() => {
+    //     axios.post('http://192.168.1.76:3000/processPayments', {
+    //         amount: 5000,
+    //         stripeAccount: ACCOUNT_ID
+    //     })
+    //     .then((response) => {
+    //         setSecretPaymentIntent(response["data"]["client_secret"])})
+    //     .catch(error => alert(error));
+    // }, [])
     const cardInfo = {
         id: "Secjsdlanfasfdnadf5as6df245",
         description: "Tshirt",
