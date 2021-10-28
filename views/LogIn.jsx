@@ -5,6 +5,8 @@ import { AuthContext } from '../context'
 import Loading from './Loading';
 import axios from 'axios'
 
+const appSettings = require('../app-settings.json');
+
 export default function LogIn({ navigation }) {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -22,7 +24,15 @@ export default function LogIn({ navigation }) {
         axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDesU1w8wTTq4ErpwucFt4xrAOHzZH0djI",params)
         .then(function(response){
             let token = response.data['localId']
-            console.log(token)
+
+            axios.get(`${appSettings['backend-host']}/customers/externalId/${token}`)
+                .then(response =>{
+                    // TODO: Establecer el response["data"]["userId"] (id del usuario) como una variable que pueda ser accedida desde otros componentes de la app
+                })
+                .catch(error => {
+                    alert(`There was an error logging in. Error details: ${error}`)
+                })
+
             logIn(token)
         })
         .catch(function(error){
@@ -31,7 +41,7 @@ export default function LogIn({ navigation }) {
             if(error){
                 let code = error.response.data.error.code
                 if(code == 400){
-                    alert("Error en usuario o contraseña")
+                    alert("El usuario y la contraseña no coinciden")
                 }else{
                     alert("Error, intentelo otra vez")
                 }
