@@ -27,16 +27,17 @@ export default function LogIn({ navigation }) {
 
             axios.get(`${appSettings['backend-host']}/customers/externalId/${token}`)
                 .then(response =>{
-                    // TODO: Establecer el response["data"]["userId"] (id del usuario) como una variable que pueda ser accedida desde otros componentes de la app
+                    let postgresId =  response["data"]["id"]
+                    let username = response["data"]["firstName"] + " "+ response["data"]["lastName"] 
+                    logIn(token,postgresId,username)
                 })
                 .catch(error => {
                     alert(`There was an error logging in. Error details: ${error}`)
                 })
 
-            logIn(token)
+            
         })
         .catch(function(error){
-            console.log("error :(", error)
             setLoading(false)
             if(error){
                 let code = error.response.data.error.code
@@ -64,6 +65,7 @@ export default function LogIn({ navigation }) {
                     onChangeText={setEmail}
                     value={email}
                     placeholder="Email"
+                    autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.input}

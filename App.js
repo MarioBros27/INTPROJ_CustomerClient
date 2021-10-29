@@ -22,6 +22,9 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
+
+  let thisToken, thisPostgresId, thisUsername;
+
   const initialLoginState = {
     isLoading: true,
     token: null
@@ -33,18 +36,24 @@ export default function App() {
         return {
           ...prevState,
           token: action.token,
+          postgresId: action.postgresId,
+          username: action.username,
           isLoading: false,
         };
       case 'LOGIN':
         return {
           ...prevState,
           token: action.token,
+          postgresId: action.postgresId,
+          username: action.username,
           isLoading: false,
         };
       case 'LOGOUT':
         return {
           ...prevState,
           token: null,
+          postgresId: null,
+          username: null,
           isLoading: false,
         };
     }
@@ -53,38 +62,44 @@ export default function App() {
   const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
   const authContext = React.useMemo(() => ({
-    logIn: async (token) => {
+    logIn: async (token, postgresId, username) => {
       try {
-        await AsyncStorage.setItem('token', token);
+        thisToken = await AsyncStorage.setItem('token', token);
+        thisPostgresId = await AsyncStorage.setItem('postgresId', postgresId);
+        thisUsername = await AsyncStorage.setItem('username', username);
+
       } catch (e) {
         console.log(e);
       }
       // console.log('user token: ', token);
-      dispatch({ type: 'LOGIN',  token: token });
+      dispatch({ type: 'LOGIN', token: token, postgresId: postgresId, username: username });
     },
     logOut: async () => {
       try {
         await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('postgresId');
+        await AsyncStorage.removeItem('username');
       } catch (e) {
         console.log(e);
       }
       dispatch({ type: 'LOGOUT' });
     },
-    
+
 
   }), []);
 
   React.useEffect(() => {
     setTimeout(async () => {
-      let token
-      token = null
+
       try {
-        token = await AsyncStorage.getItem('token');
+        thisToken = await AsyncStorage.getItem('token');
+        thisPostgresId = await AsyncStorage.getItem('postgresId');
+        thisUsername = await AsyncStorage.getItem('username');
       } catch (e) {
         console.log(e);
       }
-      dispatch({ type: 'RETRIEVE_TOKEN', token: token });
-    },0)
+      dispatch({ type: 'RETRIEVE_TOKEN', token: thisToken, postgresId: thisPostgresId, username: thisUsername });
+    }, 0)
   }, []);
   if (loginState.isLoading) {
     return (
@@ -99,50 +114,65 @@ export default function App() {
       <NavigationContainer>
         {loginState.token !== null ? (
           <Tab.Navigator
-          screenOptions={{
-            tabBarHideOnKeyboard: true,
-            tabBarActiveTintColor: "#fc6c27",
-            tabBarInactiveTintColor: "black"
-          }}>
-            <Tab.Screen name="RestaurantsNavigator" component={RestaurantsNavigator} options={{
+            screenOptions={{
+              tabBarHideOnKeyboard: true,
+              tabBarActiveTintColor: "#fc6c27",
+              tabBarInactiveTintColor: "black"
+            }}
+          >
+            <Tab.Screen name="RestaurantsNavigator" options={{
               title: "Restaurantes",
               tabBarShowLabel: false,
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="store" color={color} size={size} />
               ),
-            }} />
-            <Tab.Screen name="Reservations" component={Reservaciones} options={{
+            }} >
+              {() => <RestaurantsNavigator user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
+            </Tab.Screen>
+            <Tab.Screen name="Reservations" options={{
               title: "Reservaciones",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="calendar" color={color} size={size} />
               ),
-            }} />
-            <Tab.Screen name="Ordenes" component={Orders} options={{
+            }} >
+              {() => <Reservaciones user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
+
+            </Tab.Screen>
+            <Tab.Screen name="Ordenes" options={{
               title: "Ordenes",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="restaurant" color={color} size={size} />
               ),
-            }} />
-            
-            <Tab.Screen name="PagosNavigator" component={PagosNavigator} options={{
+            }} >
+              {() => <Orders user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
+
+            </Tab.Screen>
+
+            <Tab.Screen name="PagosNavigator" options={{
               title: "Pagos New",
               tabBarShowLabel: false,
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <FontAwesome name="money" color={color} size={size} />
               ),
-            }} />
-            <Tab.Screen name="ProfileNavigator" component={ProfileNavigator} options={{
+            }} >
+              {() => <PagosNavigator user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
+
+            </Tab.Screen>
+            <Tab.Screen name="ProfileNavigator"  options={{
               title: "Perfil",
               tabBarShowLabel: false,
               headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="person" color={color} size={size} />
               ),
-            }} />
+            }} >
+              {() => <ProfileNavigator user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
+
+            </Tab.Screen>
           </Tab.Navigator>
         )
           :

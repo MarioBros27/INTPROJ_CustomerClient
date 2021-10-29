@@ -48,11 +48,12 @@ export default function LogIn({ navigation }) {
                     externalId: token
                 })
                     .then(response => {
-                        // TODO: Establecer el response["data"]["userId"] (id del usuario) como una variable que pueda ser accedida desde otros componentes de la app
+                        let postgresId =  response["data"]["id"]
+                        let username = response["data"]["firstName"] + " "+ response["data"]["lastName"] 
+                        logIn(token,postgresId,username)
                     })
                     .catch(error => alert(`There was an error creating the user. Error details: ${error}`))
                 
-                logIn(token)
             })
             .catch(function (error) {
                 setLoading(false)
@@ -82,18 +83,25 @@ export default function LogIn({ navigation }) {
                 onChangeText={setFirstName}
                 value={firstName}
                 placeholder="Nombre"
+
+                autoCapitalize='words'
+
             />
             <TextInput
                 style={styles.input}
                 onChangeText={setLastName}
                 value={lastName}
                 placeholder="Apellidos"
+                autoCapitalize='words'
+
             />
             <TextInput
                 style={styles.input}
                 onChangeText={setEmail}
                 value={email}
                 placeholder="Email"
+                autoCapitalize='none'
+
             />
             <TextInput
                 style={styles.input}
@@ -101,6 +109,8 @@ export default function LogIn({ navigation }) {
                 value={password}
                 placeholder="Contraseña"
                 secureTextEntry={true}
+                autoCapitalize='none'
+
             />
             <TextInput
                 style={styles.input}
@@ -108,6 +118,8 @@ export default function LogIn({ navigation }) {
                 value={password2}
                 placeholder="Confirma contraseña"
                 secureTextEntry={true}
+                autoCapitalize='none'
+
             />
             <View style={styles.buttonCreate}>
                 <Button

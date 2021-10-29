@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
 
-export default function RestaurantDetails({ navigation, route }) {
+export default function RestaurantDetails({ navigation, route,user }) {
     const { restaurante } = route.params;
 
     return (
