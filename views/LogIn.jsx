@@ -15,7 +15,7 @@ export default function LogIn({ navigation }) {
     const { logIn } = React.useContext(AuthContext);
 
     const handleLogin = () => {
-        if (email.length == 0  || email.length == 0) {
+        if (email.length == 0  || password.length == 0) {
             alert("No has completado todos los campos")
             return;
         }
