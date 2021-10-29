@@ -12,6 +12,7 @@ export default function LogIn({ navigation }) {
     const [password, setPassword] = React.useState("");
     const [password2, setPassword2] = React.useState("")
     const [userId, setUserId] = React.useState("");
+    const [disableButton, setDisableButton] = React.useState(false)
 
     const [loading, setLoading] = React.useState(false)
 
@@ -19,6 +20,7 @@ export default function LogIn({ navigation }) {
 
 
     const handleSignUp = () => {
+
         if (firstName.length == 0 || lastName.length == 0 || email.length == 0) {
             alert("No has completado todos los campos")
             return;
@@ -31,7 +33,7 @@ export default function LogIn({ navigation }) {
             alert("La contraseña es demasiado corta (debe contener por lo menos 6 caracteres)")
             return;
         }
-        setLoading(true)
+        setDisableButton(true)
         const params = {
             "email": email,
             "password": password,
@@ -52,11 +54,13 @@ export default function LogIn({ navigation }) {
                         let username = response["data"]["firstName"] + " "+ response["data"]["lastName"] 
                         logIn(token,postgresId,username)
                     })
-                    .catch(error => alert(`There was an error creating the user. Error details: ${error}`))
+                    .catch(error => {
+                        setDisableButton(false)
+                        alert(`There was an error creating the user. Error details: ${error}`)})
                 
             })
             .catch(function (error) {
-                setLoading(false)
+                setDisableButton(false)
                 if (error.response.data) {
                     let code = error.response.data.error.errors[0].message
                     if (code == "EMAIL_EXISTS") {
@@ -127,6 +131,8 @@ export default function LogIn({ navigation }) {
                     title="Crear"
                     color="#fc6c27"
                     accessibilityLabel="Crear"
+                    disabled={disableButton}
+
                 />
             </View>
 
