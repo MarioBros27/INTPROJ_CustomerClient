@@ -21,7 +21,7 @@ export default function LogIn({ navigation }) {
 
     const handleSignUp = () => {
 
-        if (firstName.length == 0 || lastName.length == 0 || email.length == 0) {
+        if (firstName.length == 0 || lastName.length == 0 || email.length == 0|| password.length == 0 || password2.length == 0) {
             alert("No has completado todos los campos")
             return;
         }
