@@ -30,12 +30,6 @@ export default function Profile({ navigation,user }) {
             
             <QRCode codeStyle='square' content={user.postgresId} />
             <View style={styles.buttonContainer}>
-            {/* <Button
-                onPress={() => {  navigation.navigate("Register")}}
-                title="Registrarse para pago digital"
-                color="gray"
-                accessibilityLabel="Cerrar sesión"
-            /> */}
             </View>
             <View style={styles.buttonContainer}>
             <Button

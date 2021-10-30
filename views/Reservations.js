@@ -41,7 +41,6 @@ export default function Reservations({navigation, route, user}) {
         })
             .then(_ => alert('La reservación fue creada con éxito'))
             .catch(error => {
-                console.log(error)
                 alert(error)
             })
     }
