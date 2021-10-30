@@ -8,6 +8,7 @@ import PagosNavigator from './views/PagosNavigator';
 import Reservaciones from './views/Reservaciones';
 import RestaurantsNavigator from './views/RestaurantsNavigator';
 import ProfileNavigator from './views/ProfileNavigator';
+import OrdersNavigator from './views/OrdersNavigator';
 import Loading from './views/Loading';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -71,7 +72,6 @@ export default function App() {
       } catch (e) {
         console.log(e);
       }
-      // console.log('user token: ', token);
       dispatch({ type: 'LOGIN', token: token, postgresId: postgresId, username: username });
     },
     logOut: async () => {
@@ -130,7 +130,7 @@ export default function App() {
             }} >
               {() => <RestaurantsNavigator user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
             </Tab.Screen>
-            <Tab.Screen name="Reservations" options={{
+            <Tab.Screen name="Reservaciones" options={{
               title: "Reservaciones",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
@@ -140,15 +140,14 @@ export default function App() {
               {() => <Reservaciones user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
 
             </Tab.Screen>
-            <Tab.Screen name="Ordenes" options={{
+            <Tab.Screen name="OrdersNavigator" options={{
               title: "Ordenes",
               tabBarShowLabel: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="restaurant" color={color} size={size} />
               ),
             }} >
-              {() => <Orders user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
-
+              {() => <OrdersNavigator user={{ token: loginState.token, postgresId: loginState.postgresId, username: loginState.username }} />}
             </Tab.Screen>
 
             <Tab.Screen name="PagosNavigator" options={{
