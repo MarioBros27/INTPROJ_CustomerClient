@@ -24,7 +24,6 @@ export default function OrderDetails({ navigation, route, user }) {
         .then(_ => {
           axios.post(`${appSettings['backend-host']}/processPayment?billId=${order.id}&restaurantId=${order.restaurantId}`)
             .then(response => {
-              console.log(response.data.client_secret)
               navigation.navigate("PagoOrden", {
                 clientSecret: response.data.client_secret,
                 order: order,
