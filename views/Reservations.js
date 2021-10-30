@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import logo from '../assets/logo.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
+const appSettings = require('../app-settings.json');
 
 
-export default function Reservations({navigation, route}) {
+export default function Reservations({navigation, route, user}) {
     const { restaurante } = route.params;
 
-    const [username, setUsername] = useState("Daniel Nunez");
     const [status, setStatus] = useState("Creando");
     const [seats, setSeats] = useState(null);
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [reservationDate, setReservationDate] = useState('Empty');
+    const [reservationDate, setReservationDate] = useState('');
     const [id, setId] = useState('');
-    React.useEffect(() => {
+
+    useEffect(() => {
         setTimeout(async () => {
 
             try {
@@ -29,13 +32,25 @@ export default function Reservations({navigation, route}) {
     }, [])
 
 
+    const createReservation = () => {
+        axios.post(`${appSettings['backend-host']}/reservations`, {
+            restaurantId: restaurante.id,
+            customerId: user.postgresId,
+            appointment: Date.parse(reservationDate),
+            seats: seats
+        })
+            .then(_ => alert('La reservación fue creada con éxito'))
+            .catch(error => {
+                console.log(error)
+                alert(error)
+            })
+    }
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
         let tempDate = new Date(currentDate);
-        let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
         let hour = tempDate.getHours();
         let minutes = tempDate.getMinutes();
         if(hour < 10){
@@ -44,8 +59,7 @@ export default function Reservations({navigation, route}) {
         if(minutes < 10){
             minutes = '0' + minutes;
         }
-        let fTime = hour + ':' + minutes;
-        setReservationDate(fDate + ' ' + fTime);
+        setReservationDate(tempDate.toString());
     }
 
     const showMode = (currentMode) => {
@@ -57,14 +71,13 @@ export default function Reservations({navigation, route}) {
 
         <View style={styles.container}>
             <Text style={styles.titleText}>
-                {restaurante.name}
-                
+                restaurant.name
             </Text>
             <Image
                 style={styles.stretch}
                 source={logo}
             />
-            <Text>Reservar a nombre de {username}</Text>
+            <Text>Reservar a nombre de {user.username}</Text>
             <Text>No. de personas: {seats}</Text>
             <TextInput
                 style={styles.input}
@@ -82,7 +95,7 @@ export default function Reservations({navigation, route}) {
                 <Button title='Hora de la reservación' onPress={() => showMode('time')}/>
             </View>
             <View style ={{margin:20}}>
-                <Button title='Reservar'/>
+                <Button title='Reservar' onPress={() => createReservation() } />
             </View>
             {show && (
                 <DateTimePicker

@@ -1,15 +1,23 @@
 import React from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 
-export default function RestaurantDetails({ navigation, route,user }) {
+export default function RestaurantDetails({ navigation, route, user }) {
     const { restaurante } = route.params;
 
     return (
         <View style={styles.container}>
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>{restaurante.name}</Text>
-                <Text style={styles.subtitle}>{restaurante.street} #{restaurante.numExt}.</Text>
-                <Text style={styles.subtitle}>Colonia {restaurante.colonia}, Ciudad {restaurante.city}, {restaurante.state}.</Text>
+                <Text style={styles.subtitle}>{restaurante.description}</Text>
+                <Text style={styles.subtitle}>Dirección: {restaurante.street} #{restaurante.externalNumber}, {restaurante.suburb}</Text>
+                <Text style={styles.subtitle}>Ubicación: {restaurante.city}, {restaurante.state}</Text> 
+                <Text style={styles.subtitle}>Capacidad: {restaurante.totalCapacity} personas</Text>
+                { restaurante.phone1 != null &&
+                    <Text style={styles.subtitle}>Teléfono: {restaurante.phone1}</Text>
+                }
+                { restaurante.phone2 != null &&
+                    <Text style={styles.subtitle}>Teléfono: {restaurante.phone2}</Text>
+                }
             </View>
             <View style={styles.buttonContainer}>
                 <Button

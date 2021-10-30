@@ -1,57 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 
-const DATA = [
-    {
-        id: "1",
-        name: "Danil's Pizza",
-        street: "Calle 1ra Norte",
-        numExt: 10223,
-        numInt: 2,
-        colonia: "Centro",
-        city: "Delicias",
-        state: "Chihuahua"
-    },
-    {
-        id: "2",
-        name: "Pollos Hermanos",
-        street: "Calle Libertad",
-        numExt: 1021,
-        numInt: 1,
-        colonia: "Centro",
-        city: "Chihuahua",
-        state: "Chihuahua"
-    },
-    {
-        id: "3",
-        name: "Cindykery",
-        street: "Calle Heroico Colegio Militar",
-        numExt: 332,
-        numInt: 1,
-        colonia: "Vistas",
-        city: "Chihuahua",
-        state: "Chihuahua"
-    },
-    {
-        id: "4",
-        name: "The Moon Warriors",
-        street: "Ave. Garza",
-        numExt: 96210,
-        numInt: 5,
-        colonia: "Sur",
-        city: "Chihuahua",
-        state: "Chihuahua"
-    },
-]
 
-const Item = ({ name, street, numExt }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{name}</Text>
-      <Text style={styles.subtitle}>{street} #{numExt}</Text>
-    </View>
-  );
+const appSettings = require('../app-settings.json');
 
 export default function Restaurants({navigation}) {
+
+    const [restaurants, setRestaurants] = useState([])
+
+    useEffect(() => {
+        axios.get(`${appSettings['backend-host']}/restaurants`)
+            .then(response => {
+                setRestaurants(response.data)
+            })
+            .catch(error => alert(error))
+    },[])
+
     const renderItem = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => {
@@ -61,7 +26,7 @@ export default function Restaurants({navigation}) {
             }}>
                 <View style={styles.item}>
                     <Text style={styles.title}>{item.name}</Text>
-                    <Text style={styles.subtitle}>{item.street} #{item.numExt}</Text>
+                    <Text style={styles.subtitle}>{item.street} #{item.externalNumber}, {item.suburb}</Text>
                 </View>
             </TouchableOpacity>
             )  
@@ -79,7 +44,7 @@ export default function Restaurants({navigation}) {
                 />
             </View>
             <FlatList
-                data={DATA}
+                data={restaurants}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
