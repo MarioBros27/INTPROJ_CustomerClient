@@ -1,131 +1,41 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, StatusBar, Button, TouchableOpacity, SectionList } from 'react-native';
-const DATA = [
 
-    {
-        title: "Pendientes:",
-        data: [{
-            id: "1",
-            status: "pendiente",
-            restaurante: "Pollos hermanos",
-            fecha: "12-12-2021",
-            hora: "14:30",
-            total: "24000",
-            propina: "20",
-            referencia: "askjhkjh1-qsasaas-assaas-as"
-        }]
-    },
-    {
-        title: "Realizados:",
-        data: [{
-            id: "2",
-            status: "pendiente",
-            restaurante: "Pollos hermanos",
-            fecha: "12-12-2021",
-            hora: "14:30",
-            total: "24000",
-            propina: "20",
-            referencia: "askjhkjh1-qsasaas-assaas-as"
-        },
-        {
-            id: "3",
-            status: "pendiente",
-            restaurante: "Pollos hermanos",
-            fecha: "12-12-2021",
-            hora: "14:30",
-            total: "24000",
-            propina: "20",
-            referencia: "askjhkjh1-qsasaas-assaas-as"
-        },
-        {
-            id: "4",
-            status: "pendiente",
-            restaurante: "Pollos hermanos",
-            fecha: "12-12-2021",
-            hora: "14:30",
-            total: "24000",
-            propina: "20",
-            referencia: "askjhkjh1-qsasaas-assaas-as"
-        }]
-    }
+const appSettings = require('../app-settings.json');
 
-]
+export default function Pagos({ navigation, user }) {
 
+    const [payments, setPayments] = useState([])
 
-export default function Pagos({ navigation }) {
+    useEffect(() => {
+        axios.get(`${appSettings['backend-host']}/payments?customerId=${user.postgresId}`)
+            .then(response => {
+                setPayments(response.data)
+            })
+            .catch(error => alert(`There was an error retrieving the user payments. Error details ${error}`))
+    }, [])
     
-    const Item = ({ item }) => {
+    const renderItem = ({ item }) => {
 
-        if (item.status == "pendiente") {
-            return (
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("Pago", {
-                        item: item
-                    })
-                }}>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>{item.restaurante}</Text>
-                        <Text style={styles.subtitle}>${item.total}</Text>
-                        
-                    </View>
-                </TouchableOpacity>
-            )
-        } else {
-            return(
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("Pago", {
-                        item: item
-                    })
-                }}>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>{item.restaurante}</Text>
-                        <Text style={styles.subtitle}>${item.total}</Text>
-                        <Text style={styles.subtitle}>{item.fecha}</Text>
-                        <Text style={styles.subtitle}>{item.hora}</Text>
-        
-                    </View>
-                </TouchableOpacity>
-            )
-        }
+        return(
+            <TouchableOpacity onPress={() => {
+                navigation.navigate("Pago", {
+                    item: item
+                })
+            }}>
+                <View style={styles.item}>
+                    <Text style={styles.title}>{item.Bill.Restaurant.name} - {`${item.paymentDate.slice(8,10)}/${item.paymentDate.slice(5,7)}/${item.paymentDate.slice(0,4)} ${item.paymentDate.slice(11,16)}`}</Text>
+                    <Text style={styles.subtitle}>${item.Bill.total}</Text>
+                    <Text style={styles.subtitle}>Reference number: {item.referenceId}</Text>
+    
+                </View>
+            </TouchableOpacity>
+        )
         
 
     };
 
-    const renderItem = ({ section,item }) => {
-   
-        if (section.title == "Pendientes:") {
-            return (
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("Pagar", {
-                        bill: item
-                    })
-                }}>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>{item.restaurante}</Text>
-                        <Text style={styles.subtitle}>${item.total}</Text>
-                        
-                    </View>
-                </TouchableOpacity>
-            )
-        } else {
-            return(
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("Pago", {
-                        bill: item
-                    })
-                }}>
-                    <View style={styles.item}>
-                        <Text style={styles.title}>{item.restaurante}</Text>
-                        <Text style={styles.subtitle}>${item.total}</Text>
-                        <Text style={styles.subtitle}>Fecha: {item.fecha}</Text>
-                        <Text style={styles.subtitle}>Hora: {item.hora}</Text>
-        
-                    </View>
-                </TouchableOpacity>
-            )
-        }
-        
-};
     return (
 
         <SafeAreaView style={styles.container}>
@@ -139,13 +49,10 @@ export default function Pagos({ navigation }) {
                     accessibilityLabel="Actualizar"
                 />
             </View>
-            <SectionList
-                sections={DATA}
-                keyExtractor={(item, index) => item + index}
+            <FlatList
+                data={payments}
                 renderItem={renderItem}
-                renderSectionHeader={({ section: { title } }) => (
-                    <Text style={styles.header}>{title}</Text>
-                )}
+                keyExtractor={item => item.id}
             />
         </SafeAreaView>
 
