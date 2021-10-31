@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import logo from '../assets/logo.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -72,12 +71,8 @@ export default function Reservations({navigation, route, user}) {
             <Text style={styles.titleText}>
                 {restaurante.name}
             </Text>
-            <Image
-                style={styles.stretch}
-                source={logo}
-            />
-            <Text>Reservar a nombre de {user.username}</Text>
-            <Text>No. de personas: {seats}</Text>
+            <Text style={styles.subtitle}>{restaurante.description}</Text>
+            <Text style={styles.subtitle}>Reservar a nombre de {user.username}</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setSeats}
@@ -85,8 +80,8 @@ export default function Reservations({navigation, route, user}) {
                 placeholder="No. de personas"
                 keyboardType="numeric"
             />
-            <Text>Estado de la reservación: {status}</Text>
-            <Text>{reservationDate}</Text>
+            <Text style={styles.subtitle}>Estado de la reservación: {status}</Text>
+            <Text style={styles.subtitle}>{reservationDate}</Text>
             <View style ={{margin:20}}>
                 <Button title='Fecha de la reservación' onPress={() => showMode('date')}/>
             </View>
@@ -115,12 +110,19 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         alignItems: 'center',
-        justifyContent: 'center',
+        textAlign: 'justify',
         padding: 20
     },
     titleText: {
-        fontSize: 20,
-        fontWeight: "bold"
+        fontSize: 24,
+        marginBottom: 2,
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    subtitle: {
+        fontSize: 18,
+        marginBottom: 2,
+        alignSelf: 'flex-start'
     },
     stretch: {
         marginTop: '10%',
@@ -134,5 +136,8 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
+    },
+    rows: {
+        flexDirection: "row",
     }
 });

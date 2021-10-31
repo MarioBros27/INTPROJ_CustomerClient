@@ -47,8 +47,8 @@ export default function OrderDetails({ navigation, route, user }) {
     const renderItem = ({ item }) => {
       return (
         <View style={styles.item}>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.subtitle}>Precio: {item.price}</Text>
+          <Text style={styles.plateTitle}>{item.name}</Text>
+          <Text style={styles.subtitle}>Precio: ${item.price}</Text>
           <Text style={styles.subtitle}>Cantidad: {item.ItemBill.quantity}</Text>
         </View>
       )
@@ -58,27 +58,28 @@ export default function OrderDetails({ navigation, route, user }) {
         <View style={styles.container}>
           <Text style={styles.title}>{order.Restaurant.name}</Text>
           <Text style={styles.subtitle}>Fecha y hora de apertura: {`${order.checkIn.slice(8,10)}/${order.checkIn.slice(5,7)}/${order.checkIn.slice(0,4)} ${order.checkIn.slice(11,16)}`}</Text>
-          <Text style={styles.subtitle}>Propina: {order.tip}</Text> 
-          <TextInput
-            style={styles.input}
-            onChangeText={setTip}
-            placeholder="Propina"
-            keyboardType="numeric"
-            value={tip}
-          />
-          <View style={styles.buttonContainer}>
-            <Button
-                onPress={() => {
-                  updateTip()
-                }}
-                title="Agregar Propina"
-                color="green"
-                accessibilityLabel="Agregar Propina"
+          <Text style={styles.subtitle}>Propina: ${order.tip}</Text> 
+          <View style={styles.rowTip}>
+            <TextInput
+              style={styles.input}
+              onChangeText={setTip}
+              placeholder="Propina"
+              keyboardType="numeric"
             />
+            <View style={styles.buttonContainer}>
+              <Button
+                  onPress={() => {
+                    updateTip()
+                  }}
+                  title="Agregar Propina"
+                  color="green"
+                  accessibilityLabel="Agregar Propina"
+              />
+            </View>
           </View>
           <Text style={styles.subtitle}>Mesa: {order.tableNumber}</Text>
-          <Text style={styles.subtitle}>Subtotal: {subtotal}</Text>
-          <Text style={styles.subtitle}>Total: { subtotal + order.tip}</Text>
+          <Text style={styles.subtitle}>Subtotal: ${subtotal}</Text>
+          <Text style={styles.subtitle}>Total: ${ subtotal + order.tip}</Text>
           <View style={styles.buttonContainer}>
             <Button
                 onPress={() => {
@@ -103,7 +104,6 @@ export default function OrderDetails({ navigation, route, user }) {
                     createPaymentIntent()
                   }}
                   title="Proceder al pago"
-                  color="blue"
                   accessibilityLabel="DetallesOrdenes"
               />
             }
@@ -150,14 +150,17 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginBottom: 2,
-        // marginTop: 20,
         fontWeight: "bold",
-        // textAlign: "center"
+        textAlign: "center"
+    },
+    plateTitle: {
+      fontSize: 24,
+      marginBottom: 2,
+      fontWeight: "bold",
     },
     subtitle: {
         fontSize: 18,
         marginBottom: 2,
-        // textAlign: "center"
     },
     input: {
       width: "100%",
@@ -165,5 +168,10 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       padding: 10,
       backgroundColor: "#fff"
-  }
+    },
+    rowTip: {
+      flexDirection: "row",
+      maxWidth:"40%",
+      marginLeft:15
+    }
 });
