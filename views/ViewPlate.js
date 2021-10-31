@@ -15,18 +15,6 @@ export default function ViewPlate({navigation, route}) {
             })
             .catch(error => alert(error))
     },[])
-  //const [plates, setPlates] = useState([
-    //{ name:'Bola con Pollo', price:137, description:'Pasta tampico, aguacate, queso philadelphia y camarón. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:1 },
-    //{ name:'Bola con Pastor', price:133, description:'Pasta tampico, aguacate, queso philadelphia y camarón. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:2 },
-    //{ name:'Bola con Carne de Res', price:149, description:'Pasta tampico, aguacate, queso philadelphia y carne de res. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:3 },
-    //{ name:'Bola con Camaron', price:142, description:'Pasta tampico, aguacate, queso philadelphia y camarón. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:4 },
-    //{ name:'Bola con Tocino', price:140, description:'Pasta tampico, aguacate, queso philadelphia y pastor. Bañada en salsa de anguila y chipotle con trozos de piña.', key:5 },
-    //{ name:'Bola con Pollo', price:137, description:'Pasta tampico, aguacate, queso philadelphia y camarón. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:6 },
-    //{ name:'Bola con Pastor', price:133, description:'Pasta tampico, aguacate, queso philadelphia y camarón. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:7 },
-    //{ name:'Bola con Carne de Res', price:149, description:'Pasta tampico, aguacate, queso philadelphia y carne de res. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:8 },
-    //{ name:'Bola con Camaron', price:142, description:'Pasta tampico, aguacate, queso philadelphia y camarón. Bañada en salsa de anguila y chipotle con verdura de pepino.', key:9 },
-  //  { name:'Bola con Tocino', price:140, description:'Pasta tampico, aguacate, queso philadelphia y pastor. Bañada en salsa de anguila y chipotle con trozos de piña.', key:10 },
-//  ])
 
   return (
     <View style={styles.container}>

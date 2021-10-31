@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, Button } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Button, TextInput } from 'react-native';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
 
 export default function OrderDetails({ navigation, route, user }) {
     const { order } = route.params;
-
+    const [tip, setTip] = useState(0)
     const [ subtotal, setSubtotal] = useState(0)
 
+    const updateTip = (() => {
+      axios.put(`${appSettings['backend-host']}/bills/${order.id}`,{
+        tip: tip
+      })
+      .then(alert("Se actualizo la propina"))
+      .catch(error => alert("Hubo un error al actualizar la propina"))
+    })
     useEffect(() => {
-      total = 0;
+      let total = 0;
 
       order.Items.forEach(item => {
         total = total + (item.price * item.ItemBill.quantity)
@@ -52,9 +59,38 @@ export default function OrderDetails({ navigation, route, user }) {
           <Text style={styles.title}>{order.Restaurant.name}</Text>
           <Text style={styles.subtitle}>Fecha y hora de apertura: {`${order.checkIn.slice(8,10)}/${order.checkIn.slice(5,7)}/${order.checkIn.slice(0,4)} ${order.checkIn.slice(11,16)}`}</Text>
           <Text style={styles.subtitle}>Propina: {order.tip}</Text> 
+          <TextInput
+            style={styles.input}
+            onChangeText={setTip}
+            placeholder="Propina"
+            keyboardType="numeric"
+            value={tip}
+          />
+          <View style={styles.buttonContainer}>
+            <Button
+                onPress={() => {
+                  updateTip()
+                }}
+                title="Agregar Propina"
+                color="green"
+                accessibilityLabel="Agregar Propina"
+            />
+          </View>
           <Text style={styles.subtitle}>Mesa: {order.tableNumber}</Text>
           <Text style={styles.subtitle}>Subtotal: {subtotal}</Text>
           <Text style={styles.subtitle}>Total: { subtotal + order.tip}</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+                onPress={() => {
+                  navigation.navigate("Agregar", {
+                    order: order
+                })
+                }}
+                title="Agregar Productos"
+                color="green"
+                accessibilityLabel="Agregar Productos"
+            />
+          </View>
           <FlatList
             data={order.Items}
             renderItem={renderItem}
@@ -122,5 +158,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 2,
         // textAlign: "center"
-    }
+    },
+    input: {
+      width: "100%",
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+      backgroundColor: "#fff"
+  }
 });

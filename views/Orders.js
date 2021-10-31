@@ -9,7 +9,7 @@ export default function Reservaciones({navigation, user}) {
 
     const [orders, setOrders] = useState([])
     const [status, setStatus] = useState(false)
-    const toggleSwitch = () => setStatus(previousState => !previousState)
+    const toggleSwitch = () => setStatus(!status)
 
 
     useEffect(() => {
