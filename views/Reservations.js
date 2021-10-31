@@ -70,7 +70,7 @@ export default function Reservations({navigation, route, user}) {
 
         <View style={styles.container}>
             <Text style={styles.titleText}>
-                restaurant.name
+                {restaurante.name}
             </Text>
             <Image
                 style={styles.stretch}

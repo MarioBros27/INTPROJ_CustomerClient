@@ -22,7 +22,9 @@ export default function RestaurantDetails({ navigation, route, user }) {
             <View style={styles.buttonContainer}>
                 <Button
                     onPress={() => {
-                        alert("Ir al menú")
+                        navigation.navigate("Menu", {
+                            restaurante: restaurante
+                        })
                     }}
                     title="Menú"
                     color="green"

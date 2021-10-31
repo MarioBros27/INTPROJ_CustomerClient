@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Restaurants from './Restaurants';
 import Reservations from './Reservations';
 import RestaurantDetails from './RestaurantDetails';
+import ViewPlate from './ViewPlate';
 
 export default function RestaurantsNavigator({ navigation, user }) {
     const Stack = createNativeStackNavigator();
@@ -16,6 +17,9 @@ export default function RestaurantsNavigator({ navigation, user }) {
             </Stack.Screen>
             <Stack.Screen name="Detalles" options={{ title: "Detalles" }} >
             {(props)=><RestaurantDetails {...props} user={user}/>}
+            </Stack.Screen>
+            <Stack.Screen name="Menu" options={{ title: "Menu" }} >
+            {(props)=><ViewPlate {...props} user={user}/>}
             </Stack.Screen>
         </Stack.Navigator>
     );

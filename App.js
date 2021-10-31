@@ -143,6 +143,7 @@ export default function App() {
             <Tab.Screen name="OrdersNavigator" options={{
               title: "Ordenes",
               tabBarShowLabel: false,
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <MaterialIcons name="restaurant" color={color} size={size} />
               ),
