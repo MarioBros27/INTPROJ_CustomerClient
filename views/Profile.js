@@ -1,31 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StyleSheet, View, Text, Button,Alert } from 'react-native';
 import { AuthContext } from '../context'
 import { QRCode } from 'react-native-custom-qr-codes-expo';
 
 
 export default function Profile({ navigation,user }) {
-    const [postgresId, setPostgresId] = React.useState(user.postgresId)
-    // const [username, setUsername] = React.useState('Ricardo Luna Guerrero')
     const { logOut } = React.useContext(AuthContext);
-
-    // React.useEffect(() => {
-    //     setTimeout(async () => {
-
-    //         try {
-    //             let tokenT = await AsyncStorage.getItem('token');
-    //             setToken(tokenT)
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     }, 0)
-    // }, [])
+    const logOutAlert = ()=>{
+        Alert.alert('', '¿De verdad quieres salir?', [
+            { text: 'Aceptar', onPress: () => logOut()},
+            {
+              text: 'Cancelar',
+              style: 'cancel',
+            },
+            
+          ]);
+    }
+    
     return (
 
         <View style={styles.container}>
 
-            {/* <Text>{token}</Text> */}
             <Text style={styles.title}>{user.username}</Text>
             
             <QRCode codeStyle='square' content={user.postgresId} />
@@ -33,7 +28,7 @@ export default function Profile({ navigation,user }) {
             </View>
             <View style={styles.buttonContainer}>
             <Button
-                onPress={() => {  logOut()}}
+                onPress={() => {  logOutAlert()}}
                 title="Cerrar sesión"
                 color="red"
                 accessibilityLabel="Cerrar sesión"
@@ -46,10 +41,8 @@ export default function Profile({ navigation,user }) {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         flexDirection: "column",
         alignItems: 'center',
-        // justifyContent: 'center',
         padding: 20
     },
     buttonContainer:{
