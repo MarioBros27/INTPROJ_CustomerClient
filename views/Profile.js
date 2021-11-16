@@ -7,7 +7,6 @@ import { QRCode } from 'react-native-custom-qr-codes-expo';
 
 export default function Profile({ navigation,user }) {
     const [postgresId, setPostgresId] = React.useState(user.postgresId)
-    // const [username, setUsername] = React.useState('Ricardo Luna Guerrero')
     const { logOut } = React.useContext(AuthContext);
 
     // React.useEffect(() => {
@@ -25,7 +24,6 @@ export default function Profile({ navigation,user }) {
 
         <View style={styles.container}>
 
-            {/* <Text>{token}</Text> */}
             <Text style={styles.title}>{user.username}</Text>
             
             <QRCode codeStyle='square' content={user.postgresId} />

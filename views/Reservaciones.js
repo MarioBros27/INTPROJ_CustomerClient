@@ -29,17 +29,7 @@ export default function Reservaciones({navigation, user}) {
             )  
     }; 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={() => {
-                        alert("actualizando")
-                    }}
-                    title="Actualizar"
-                    color="green"
-                    accessibilityLabel="Actualizar"
-                />
-            </View>
+        <SafeAreaView>
             <FlatList
                 data={reservations}
                 renderItem={renderItem}
@@ -51,13 +41,6 @@ export default function Reservaciones({navigation, user}) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: "column",
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20
-    },
     item: {
         backgroundColor: '#fff',
         padding: 15,

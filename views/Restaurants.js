@@ -33,16 +33,6 @@ export default function Restaurants({navigation}) {
     }; 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={() => {
-                        alert("actualizando")
-                    }}
-                    title="Actualizar"
-                    color="green"
-                    accessibilityLabel="Actualizar"
-                />
-            </View>
             <FlatList
                 data={restaurants}
                 renderItem={renderItem}

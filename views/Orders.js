@@ -36,29 +36,23 @@ export default function Reservaciones({navigation, user}) {
     }; 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <Text>Finished orders:</Text>
-                <Switch
-                    trackColor={{ false: "#767577", true: "#81b0ff" }}
-                    thumbColor={status ? "#f5dd4b" : "#f4f3f4"}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={status}
-                />
-                <Button
-                    onPress={() => {
-                        alert("actualizando")
-                    }}
-                    title="Actualizar"
-                    color="green"
-                    accessibilityLabel="Actualizar"
-                />
-            </View>
+            <Text>{ status && "Ordenes finalizadas" }</Text>
+            <Text>{ !status && "Ordenes no finalizadas" }</Text>
             <FlatList
                 data={orders}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
+            <View style={styles.buttonContainer}>
+                <Button
+                    onPress={() => {
+                        toggleSwitch()
+                    }}
+                    title = {"Filter by another status"}
+                    color="green"
+                    accessibilityLabel="Actualizar"
+                />
+            </View>
         </SafeAreaView>
 
     );
