@@ -18,11 +18,12 @@ export default function Reservaciones({navigation, user}) {
     },[])
 
     const renderItem = ({ item }) => {
+        const realDate = new Date(Date.parse(item.appointment)).toString();
         return (
                 <View style={styles.item}>
                     <Text style={styles.title}>{item.Restaurant.name}</Text>
-                    <Text style={styles.subtitle}>Fecha: {`${item.appointment.slice(8,10)}/${item.appointment.slice(5,7)}/${item.appointment.slice(0,4)}`}</Text>
-                    <Text style={styles.subtitle}>Hora: {`${item.appointment.slice(11,16)}`}</Text>
+                    <Text style={styles.subtitle}>Fecha: {`${realDate.slice(4,15)}`}</Text>
+                    <Text style={styles.subtitle}>Hora: {`${realDate.slice(16,21)}`}</Text>
                     <Text style={styles.subtitle}>Número de personas: {item.seats}</Text>
                     <Text style={styles.subtitle}>Estado: {item.status}</Text>
                 </View>
