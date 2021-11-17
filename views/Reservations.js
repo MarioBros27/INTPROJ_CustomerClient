@@ -81,7 +81,7 @@ export default function Reservations({navigation, route, user}) {
                 keyboardType="numeric"
             />
             <Text style={styles.subtitle}>Estado de la reservación: {status}</Text>
-            <Text style={styles.subtitle}>{reservationDate}</Text>
+            <Text style={styles.subtitle}>Fecha: {reservationDate.slice(4,21)}</Text>
             <View style ={{margin:20}}>
                 <Button title='Fecha de la reservación' onPress={() => showMode('date')}/>
             </View>

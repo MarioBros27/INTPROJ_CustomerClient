@@ -21,6 +21,7 @@ export default function Reservaciones({navigation, user}) {
     }, [status])
 
     const renderItem = ({ item }) => {
+        const realDate = new Date(Date.parse(item.checkIn)).toString();
         return (
             <TouchableOpacity onPress={() => {
                 navigation.navigate("DetallesOrdenes", {
@@ -29,7 +30,7 @@ export default function Reservaciones({navigation, user}) {
             }}>
                 <View style={styles.item}>
                     <Text style={styles.title}>{item.Restaurant.name}</Text>
-                    <Text style={styles.subtitle}>Fecha y hora de apertura: {`${item.checkIn.slice(8,10)}/${item.checkIn.slice(5,7)}/${item.checkIn.slice(0,4)} ${item.checkIn.slice(11,16)}`}</Text>
+                    <Text style={styles.subtitle}>Fecha y hora: {`${realDate.slice(4,21)}`}</Text>
                 </View>
             </TouchableOpacity>
             )

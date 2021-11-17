@@ -53,11 +53,11 @@ export default function OrderDetails({ navigation, route, user }) {
         </View>
       )
     }; 
-
+    const realDate = new Date(Date.parse(order.checkIn)).toString();
     return (
         <View style={styles.container}>
           <Text style={styles.title}>{order.Restaurant.name}</Text>
-          <Text style={styles.subtitle}>Fecha y hora de apertura: {`${order.checkIn.slice(8,10)}/${order.checkIn.slice(5,7)}/${order.checkIn.slice(0,4)} ${order.checkIn.slice(11,16)}`}</Text>
+          <Text style={styles.subtitle}>Fecha y hora: {`${realDate.slice(4,21)}`}</Text>
           <Text style={styles.subtitle}>Propina: ${order.tip}</Text> 
           <View style={styles.rowTip}>
             <TextInput
