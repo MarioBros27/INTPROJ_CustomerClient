@@ -20,11 +20,24 @@ export default function Reservaciones({ user}) {
         const realDate = new Date(Date.parse(item.appointment)).toString();
         return (
             <View style={styles.item}>
-                <Text style={styles.title}>{item.Restaurant.name}</Text>
-                <Text style={styles.subtitle}>Fecha: {`${realDate.slice(4,15)}`}</Text>
-                <Text style={styles.subtitle}>Hora: {`${realDate.slice(16,21)}`}</Text>
-                <Text style={styles.subtitle}>Número de personas: {item.seats}</Text>
-                <Text style={styles.subtitle}>Estado: {item.status}</Text>
+                <View style={styles.rowContainer}>
+                    <View style={[styles.leftContainer, {width: '60%'}]}>
+                        <Text style={styles.title}>{item.Restaurant.name}</Text>
+                    </View>
+                    <View style={[styles.rightContainer, {width: '30%'}]}>
+                        { item.status == 'waiting' && 
+                            <Text style={styles.waitingReservation}>Pendiente</Text>
+                        }
+                        { item.status == 'canceled' && 
+                            <Text style={styles.cancelledReservation}>Cancelada</Text>    
+                        }
+                        { item.status == 'accepted' &&
+                            <Text style={styles.acceptedReservation}>Aceptada</Text>
+                        }
+                    </View>
+                </View>
+                <Text style={styles.subtitle}><Text style={{fontWeight: 'bold'}}>Fecha y hora:</Text> {`${realDate.slice(4,15)} ${realDate.slice(16,21)}`}</Text>
+                <Text style={styles.subtitle}><Text style={{fontWeight: 'bold'}}>Número de personas:</Text> {item.seats}</Text>
             </View>
         )  
     }; 
@@ -43,28 +56,63 @@ export default function Reservaciones({ user}) {
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#fff',
-        padding: 15,
-        marginVertical: 8,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        borderLeftColor: '#00b4d8',
+        borderLeftWidth: 3,
+        marginTop: 15,
+        marginBottom: 10,
         marginHorizontal: 16,
-        borderColor: "#000",
-        borderWidth: 1,
-        borderRadius: 22
+        borderRadius: 10
     },
-    buttonContainer: {
-        marginBottom: 4
+
+    waitingReservation: {
+        padding: 5,
+        marginLeft: 5,
+        borderRadius: 5,
+        backgroundColor: "#F8E473",
+        color: "#C49102"
     },
-    header: {
-        fontSize: 24,
-        marginBottom: 2,
-        fontWeight: "bold",
-        marginLeft: 20
+
+    cancelledReservation: {
+        padding: 5,
+        marginLeft: 5,
+        borderRadius: 5,
+        backgroundColor: "#FBA490",
+        color: "#B83253"
     },
+
+    acceptedReservation: {
+        padding: 5,
+        marginLeft: 5,
+        borderRadius: 5,
+        backgroundColor: "#9DD7BF",
+        color: "#315e26"
+    },
+
     title: {
         fontSize: 18,
-        marginBottom: 2,
+        marginBottom: 5,
         fontWeight: "bold"
     },
+
     subtitle: {
-        fontSize: 12
+        fontSize: 14
     },
+    
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 3
+    },
+
+    leftContainer: {
+        alignItems: 'flex-start'
+    },
+
+    rightContainer: {
+        alignItems: 'flex-end',
+        marginRight: 15
+    }, 
 });
