@@ -6,14 +6,14 @@ const appSettings = require('../app-settings.json');
 
 export default function OrderDetails({ navigation, route, user }) {
     const { order } = route.params;
-    const [tip, setTip] = useState(0)
-    const [ subtotal, setSubtotal] = useState(0)
+    const [ tip, setTip ] = useState(0);
+    const [ subtotal, setSubtotal ] = useState(0);
 
     const updateTip = (() => {
       axios.put(`${appSettings['backend-host']}/bills/${order.id}`,{
         tip: tip
       })
-      .then(alert("Se actualizo la propina"))
+      .then(alert("Se actualizó la propina"))
       .catch(error => alert("Hubo un error al actualizar la propina"))
     })
     useEffect(() => {
@@ -39,9 +39,7 @@ export default function OrderDetails({ navigation, route, user }) {
             })
             .catch(_ => alert('No fue posible generar el intento de pago'))
         })
-        .catch(_ => alert(`No fue posible procesar el total de la orden.`))
-
-      
+        .catch(_ => alert('No fue posible procesar el total de la orden'))
     }
 
     const renderItem = ({ item }) => {
@@ -53,7 +51,9 @@ export default function OrderDetails({ navigation, route, user }) {
         </View>
       )
     }; 
+
     const realDate = new Date(Date.parse(order.checkIn)).toString();
+    
     return (
         <View style={styles.container}>
           <Text style={styles.title}>{order.Restaurant.name}</Text>
@@ -173,5 +173,5 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       maxWidth:"40%",
       marginLeft:15
-    }
+    },
 });

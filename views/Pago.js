@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
-export default function Pago({ route, navigation }) {
+export default function Pago({ route }) {
     const { bill } = route.params;
 
-    return (//Hola
-
+    return (
         <View style={styles.parentContainer}>
             <View style = {styles.infoContainer}>
             <Text style={styles.title}>{bill.restaurante}</Text>
@@ -16,13 +15,11 @@ export default function Pago({ route, navigation }) {
             <Text style={styles.subtitle}>Referencia: {bill.referencia}</Text>
             </View>
         </View>
-
     );
 }
 
 const styles = StyleSheet.create({
     parentContainer: {
-        // flex: 1,
         flexDirection: "column",
         alignItems: 'center',
         justifyContent: 'center',
@@ -45,6 +42,5 @@ const styles = StyleSheet.create({
     },
     subtite: {
         fontSize: 12
-    }
-
+    },
 });

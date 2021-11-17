@@ -5,8 +5,10 @@ import Reservations from './Reservations';
 import RestaurantDetails from './RestaurantDetails';
 import ViewPlate from './ViewPlate';
 
-export default function RestaurantsNavigator({ navigation, user }) {
+export default function RestaurantsNavigator({ user }) {
+
     const Stack = createNativeStackNavigator();
+    
     return (
         <Stack.Navigator initialRouteName="Restaurantes" >
             <Stack.Screen name="Restaurantes" options={{ title: "Restaurantes" }}  >

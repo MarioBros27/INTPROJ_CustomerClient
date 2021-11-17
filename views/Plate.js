@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Button, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, Button, StyleSheet, FlatList } from 'react-native';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
 
-export default function Plate({ navigation, route }){
+export default function Plate({ route }){
+
     const { order } = route.params;
-    const [plates, setPlates] = useState([])
-    const [flag, setFlag] = useState(false)
-    const [orderItems, setOrderItems] = useState([])
+    const [ plates, setPlates ] = useState([]);
+    const [ flag, setFlag ] = useState(false);
+    const [ orderItems, setOrderItems ] = useState([]);
+
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/restaurants/${order.restaurantId}/items`)
             .then(response => {
                 setPlates(response.data)
             })
             .catch(error => alert(error))
-        },
-        
+        }, 
     [])
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/bills/${order.id}`)
@@ -58,7 +59,6 @@ export default function Plate({ navigation, route }){
                 })
                 .catch(error => alert("No se pudo agregar el producto"))
         }
-        
     }
 
   return (
@@ -74,9 +74,7 @@ export default function Plate({ navigation, route }){
           style={styles.menuList}
           data={plates}
           renderItem={({ item }) => (
-            <View
-              style={styles.itemRow}
-            >
+            <View style={styles.itemRow} >
               <View style={styles.list}>
                 <Text style={styles.plateName}>{item.name}</Text>
                 <Text>MXN${item.price}</Text>
@@ -93,8 +91,6 @@ export default function Plate({ navigation, route }){
               
             </View>
         )}/>
-      
-      
     </View>
   )
 }

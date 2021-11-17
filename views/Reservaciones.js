@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList } from 'react-native';
 import axios from 'axios';
-
 
 const appSettings = require('../app-settings.json');
 
-export default function Reservaciones({navigation, user}) {
+export default function Reservaciones({ user}) {
 
-    const [reservations, setReservations] = useState([])
+    const [ reservations, setReservations ] = useState([]);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/reservations?customerId=${user.postgresId}`)
@@ -20,15 +19,16 @@ export default function Reservaciones({navigation, user}) {
     const renderItem = ({ item }) => {
         const realDate = new Date(Date.parse(item.appointment)).toString();
         return (
-                <View style={styles.item}>
-                    <Text style={styles.title}>{item.Restaurant.name}</Text>
-                    <Text style={styles.subtitle}>Fecha: {`${realDate.slice(4,15)}`}</Text>
-                    <Text style={styles.subtitle}>Hora: {`${realDate.slice(16,21)}`}</Text>
-                    <Text style={styles.subtitle}>Número de personas: {item.seats}</Text>
-                    <Text style={styles.subtitle}>Estado: {item.status}</Text>
-                </View>
-            )  
+            <View style={styles.item}>
+                <Text style={styles.title}>{item.Restaurant.name}</Text>
+                <Text style={styles.subtitle}>Fecha: {`${realDate.slice(4,15)}`}</Text>
+                <Text style={styles.subtitle}>Hora: {`${realDate.slice(16,21)}`}</Text>
+                <Text style={styles.subtitle}>Número de personas: {item.seats}</Text>
+                <Text style={styles.subtitle}>Estado: {item.status}</Text>
+            </View>
+        )  
     }; 
+
     return (
         <SafeAreaView>
             <FlatList
@@ -37,7 +37,6 @@ export default function Reservaciones({navigation, user}) {
                 keyExtractor={item => item.id}
             />
         </SafeAreaView>
-
     );
 }
 
@@ -67,6 +66,5 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 12
-    }
-
+    },
 });

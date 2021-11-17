@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, Switch, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 
@@ -7,10 +7,9 @@ const appSettings = require('../app-settings.json');
 
 export default function Reservaciones({navigation, user}) {
 
-    const [orders, setOrders] = useState([])
-    const [status, setStatus] = useState(false)
-    const toggleSwitch = () => setStatus(!status)
-
+    const [ orders, setOrders ] = useState([]);
+    const [ status, setStatus ] = useState(false);
+    const toggleSwitch = () => setStatus(!status);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/bills?customerId=${user.postgresId}&isDone=${status}`)
@@ -35,6 +34,7 @@ export default function Reservaciones({navigation, user}) {
             </TouchableOpacity>
             )
     }; 
+
     return (
         <SafeAreaView style={styles.container}>
             <Text>{ status && "Ordenes finalizadas" }</Text>
@@ -55,7 +55,6 @@ export default function Reservaciones({navigation, user}) {
                 />
             </View>
         </SafeAreaView>
-
     );
 }
 
@@ -92,6 +91,5 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 12
-    }
-
+    },
 });

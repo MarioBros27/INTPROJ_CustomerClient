@@ -4,26 +4,25 @@ import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
 
-export default function ViewPlate({navigation, route}) {
+export default function ViewPlate({ route }) {
+
     const { restaurante } = route.params;
-    const [plates, setPlates] = useState([])
+    const [ plates, setPlates ] = useState([]);
 
     useEffect(() => {
-        axios.get(`${appSettings['backend-host']}/restaurants/${restaurante.id}/items`)
-            .then(response => {
-                setPlates(response.data)
-            })
-            .catch(error => alert(error))
+      axios.get(`${appSettings['backend-host']}/restaurants/${restaurante.id}/items`)
+          .then(response => {
+              setPlates(response.data)
+          })
+          .catch(error => alert(error))
     },[])
 
   return (
     <View style={styles.container}>
-
       <View style={styles.header}>
         <Text style={styles.nameRestaurante}>
           {restaurante.name}
         </Text>
-
         
           <FlatList
             data={plates}
@@ -34,9 +33,7 @@ export default function ViewPlate({navigation, route}) {
                 <Text style={styles.textDesc}>{item.description}</Text>
               </View>
           )}/>
-
       </View>
-
     </View>
   )
 }

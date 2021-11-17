@@ -15,8 +15,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from './context';
-import axios from 'axios';
-import Orders from './views/Orders';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -84,8 +82,6 @@ export default function App() {
       }
       dispatch({ type: 'LOGOUT' });
     },
-
-
   }), []);
 
   React.useEffect(() => {
@@ -106,7 +102,6 @@ export default function App() {
       <Loading />
     )
   }
-
 
   return (
     <AuthContext.Provider value={authContext}>
@@ -187,7 +182,4 @@ export default function App() {
       </NavigationContainer>
     </AuthContext.Provider>
   )
-
-
 }
-

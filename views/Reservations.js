@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Image, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
 
+export default function Reservations({ route, user }) {
 
-export default function Reservations({navigation, route, user}) {
     const { restaurante } = route.params;
 
-    const [status, setStatus] = useState("Creando");
-    const [seats, setSeats] = useState(null);
-    const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-    const [reservationDate, setReservationDate] = useState('');
-    const [id, setId] = useState('');
+    const [ status, setStatus ] = useState("Creando");
+    const [ seats, setSeats ] = useState(null);
+    const [ date, setDate ] = useState(new Date());
+    const [ mode, setMode ] = useState('date');
+    const [ show, setShow ] = useState(false);
+    const [ reservationDate, setReservationDate ] = useState('');
+    const [ id, setId ] = useState('');
 
     useEffect(() => {
         setTimeout(async () => {
-
             try {
                 let tokenT = await AsyncStorage.getItem('token');
                 setId(tokenT)
@@ -44,7 +43,7 @@ export default function Reservations({navigation, route, user}) {
             })
     }
 
-    const onChange = (event, selectedDate) => {
+    const onChange = ( selectedDate ) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
@@ -65,7 +64,7 @@ export default function Reservations({navigation, route, user}) {
         setMode(currentMode)
     }
 
-     return (
+    return (
 
         <View style={styles.container}>
             <Text style={styles.titleText}>
@@ -101,7 +100,6 @@ export default function Reservations({navigation, route, user}) {
                 onChange={onChange}   
             />)}
         </View>
-
     );
 }
 
@@ -139,5 +137,5 @@ const styles = StyleSheet.create({
     },
     rows: {
         flexDirection: "row",
-    }
+    },
 });

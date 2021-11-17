@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
 
-export default function PaymentStripe({navigation, route, user }) {
+export default function PaymentStripe({ route, user }) {
 
     const { clientSecret } = route.params;
     const { order } = route.params;
@@ -271,9 +271,7 @@ export default function PaymentStripe({navigation, route, user }) {
         onCheckStatus(data);
     }
 
-
-     return (
-
+    return (
         <WebView
             javaScriptEnabled={true}
             style={ { flex: 1 } }
@@ -282,7 +280,6 @@ export default function PaymentStripe({navigation, route, user }) {
             injectedJavaScript={injectedJavaScript}
             onMessage={onMessage}    
         />
-
     );
 }
 
@@ -293,6 +290,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20
-    }
-
+    },
 });

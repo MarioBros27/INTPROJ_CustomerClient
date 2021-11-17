@@ -2,15 +2,14 @@ import React from 'react';
 import { StyleSheet, View, Button, TextInput, Image } from 'react-native';
 import logo from '../assets/logo.png'
 import { AuthContext } from '../context'
-import Loading from './Loading';
 import axios from 'axios'
 
 const appSettings = require('../app-settings.json');
 
 export default function LogIn({ navigation }) {
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [disableButton, setDisableButton] = React.useState(false)
+    const [ email, setEmail ] = React.useState("");
+    const [ password, setPassword ] = React.useState("");
+    const [ disableButton, setDisableButton ] = React.useState(false)
 
     const { logIn } = React.useContext(AuthContext);
 
@@ -40,7 +39,6 @@ export default function LogIn({ navigation }) {
                         alert(`There was an error logging in. Error details: ${error}`)
                     })
 
-
             })
             .catch(function (error) {
                 setDisableButton(false)
@@ -54,21 +52,17 @@ export default function LogIn({ navigation }) {
                 }
 
             })
-
     }
 
-
     return (
-
         <View style={styles.container}>
             <Image style={styles.stretch} source={logo} />
-
             <TextInput
                 style={styles.input}
                 onChangeText={setEmail}
                 value={email}
                 placeholder="Email"
-                autoCapitalize='none'
+                autoCapitalize="none"
             />
             <TextInput
                 style={styles.input}
@@ -98,9 +92,7 @@ export default function LogIn({ navigation }) {
                 />
             </View>
         </View>
-
     );
-
 }
 
 const styles = StyleSheet.create({
@@ -137,5 +129,4 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: "#fff"
     },
-
 });
