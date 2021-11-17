@@ -1,15 +1,10 @@
 import React from 'react';
-import Pago from './Pago'
-import Pagos from './Pagos'
-import Payment from './Payment';
-import PaymentStripe from './PaymentStripe';
+import Pagos from './Pagos';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function ReservacionNavigator({ navigation, user }) {
-
+export default function ReservacionNavigator({ user }) {
 
     const Stack = createNativeStackNavigator();
-
 
     return (
         <Stack.Navigator initialRouteName="Pagos" >
@@ -19,6 +14,3 @@ export default function ReservacionNavigator({ navigation, user }) {
         </Stack.Navigator>
     );
 }
-
-
-

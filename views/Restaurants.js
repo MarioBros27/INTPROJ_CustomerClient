@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-
 
 const appSettings = require('../app-settings.json');
 
-export default function Restaurants({navigation}) {
+export default function Restaurants({ navigation }) {
 
-    const [restaurants, setRestaurants] = useState([])
+    const [ restaurants, setRestaurants ] = useState([]);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/restaurants`)
@@ -39,14 +38,12 @@ export default function Restaurants({navigation}) {
                 keyExtractor={item => item.id}
             />
         </SafeAreaView>
-
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // marginTop: StatusBar.currentHeight || 0,
     },
     item: {
         backgroundColor: '#fff',
@@ -73,6 +70,5 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 12
-    }
-
+    },
 });

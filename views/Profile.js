@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button,Alert } from 'react-native';
+import { StyleSheet, View, Text, Button, Alert } from 'react-native';
 import { AuthContext } from '../context'
 import { QRCode } from 'react-native-custom-qr-codes-expo';
 
-
-export default function Profile({ navigation,user }) {
+export default function Profile({ user }) {
     const [postgresId, setPostgresId] = React.useState(user.postgresId)
     const { logOut } = React.useContext(AuthContext);
     const logOutAlert = ()=>{
@@ -14,29 +13,25 @@ export default function Profile({ navigation,user }) {
               text: 'Cancelar',
               style: 'cancel',
             },
-            
-          ]);
+        ]);
     }
     
     return (
-
         <View style={styles.container}>
 
             <Text style={styles.title}>{user.username}</Text>
-            
             <QRCode codeStyle='square' content={user.postgresId} />
             <View style={styles.buttonContainer}>
             </View>
             <View style={styles.buttonContainer}>
-            <Button
-                onPress={() => {  logOutAlert()}}
-                title="Cerrar sesión"
-                color="red"
-                accessibilityLabel="Cerrar sesión"
-            />
+                <Button
+                    onPress={() => {  logOutAlert()}}
+                    title="Cerrar sesión"
+                    color="red"
+                    accessibilityLabel="Cerrar sesión"
+                />
             </View>
         </View>
-
     );
 }
 
@@ -46,12 +41,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20
     },
-    buttonContainer:{
+    buttonContainer: {
         marginTop:40 
     },
     title: {
         fontSize: 34,
         marginBottom: 8,
         fontWeight: "bold"
-    }
+    },
 });

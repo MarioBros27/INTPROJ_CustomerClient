@@ -3,11 +3,9 @@ import Profile from './Profile';
 import Register from './Register';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function ProfileNavigator({ navigation,user }) {
-
+export default function ProfileNavigator({ user }) {
 
     const Stack = createNativeStackNavigator();
-
 
     return (
         <Stack.Navigator initialRouteName="Profile" >
@@ -15,7 +13,6 @@ export default function ProfileNavigator({ navigation,user }) {
             {(props)=><Profile {...props} user={user}/>}
             </Stack.Screen>
             <Stack.Screen name="Register" options={{title:"Registrarse"}} component={Register} />
-            
         </Stack.Navigator>
     );
 }

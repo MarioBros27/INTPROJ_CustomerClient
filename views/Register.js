@@ -1,15 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
 
-export default function Register({ navigation }) {
-    const [email, setEmail] = React.useState("")
-    const [surname, setSurname] = React.useState("")
-    const [names, setNames] = React.useState("")
+export default function Register() {
+
+    const [ email, setEmail ] = React.useState("");
+    const [ surname, setSurname ] = React.useState("");
+    const [ names, setNames ] = React.useState("");
 
     return (
         <ScrollView>
             <View style={styles.container}>
-                <Text style={styles.label}>Nombres</Text>
+                <Text style={styles.label}>Nombre(s)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setNames}
@@ -28,9 +29,7 @@ export default function Register({ navigation }) {
                     value={email}
                 />
                 <Button
-                    onPress={() => {
-
-                    }}
+                    onPress={() => {}}
                     title="Registrarse"
                     color="green"
                 />
@@ -56,8 +55,4 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: "#fff"
     },
-    buttonContainer:{
-
-    }
-
 });

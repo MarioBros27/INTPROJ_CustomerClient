@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, StatusBar, Button, TouchableOpacity, SectionList } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 
 const appSettings = require('../app-settings.json');
 
 export default function Pagos({ navigation, user }) {
 
-    const [payments, setPayments] = useState([])
+    const [ payments, setPayments ] = useState([]);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/payments?customerId=${user.postgresId}`)
@@ -27,17 +27,13 @@ export default function Pagos({ navigation, user }) {
                 <View style={styles.item}>
                     <Text style={styles.title}>{item.Bill.Restaurant.name} - {`${item.paymentDate.slice(8,10)}/${item.paymentDate.slice(5,7)}/${item.paymentDate.slice(0,4)} ${item.paymentDate.slice(11,16)}`}</Text>
                     <Text style={styles.subtitle}>${item.Bill.total}</Text>
-                    <Text style={styles.subtitle}>Reference number: {item.referenceId}</Text>
-    
+                    <Text style={styles.subtitle}>Número de referencia: {item.referenceId}</Text>
                 </View>
             </TouchableOpacity>
         )
-        
-
     };
 
     return (
-
         <SafeAreaView style={styles.container}>
             <FlatList
                 data={payments}
@@ -45,14 +41,12 @@ export default function Pagos({ navigation, user }) {
                 keyExtractor={item => item.id}
             />
         </SafeAreaView>
-
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // marginTop: StatusBar.currentHeight || 0,
     },
     item: {
         backgroundColor: '#fff',
@@ -77,8 +71,7 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         fontWeight: "bold"
     },
-    subtite: {
+    subtitle: {
         fontSize: 12
-    }
-
+    },
 });

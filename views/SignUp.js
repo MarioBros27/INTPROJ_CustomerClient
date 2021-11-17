@@ -1,23 +1,20 @@
 import React from 'react';
-import { StyleSheet, View, Button, TextInput, Image } from 'react-native';
+import { StyleSheet, View, Button, TextInput } from 'react-native';
 import { AuthContext } from '../context';
 import axios from 'axios'
 
 const appSettings = require('../app-settings.json');
 
-export default function LogIn({ navigation }) {
-    const [firstName, setFirstName] = React.useState("")
-    const [lastName, setLastName] = React.useState("")
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [password2, setPassword2] = React.useState("")
-    const [userId, setUserId] = React.useState("");
-    const [disableButton, setDisableButton] = React.useState(false)
+export default function LogIn() {
 
-    const [loading, setLoading] = React.useState(false)
+    const [ firstName, setFirstName ] = React.useState("");
+    const [ lastName, setLastName ] = React.useState("");
+    const [ email, setEmail ] = React.useState("");
+    const [ password, setPassword ] = React.useState("");
+    const [ password2, setPassword2 ] = React.useState("");
+    const [ disableButton, setDisableButton ] = React.useState(false);
 
     const { logIn } = React.useContext(AuthContext);
-
 
     const handleSignUp = () => {
 
@@ -76,20 +73,17 @@ export default function LogIn({ navigation }) {
                     alert("Error, intente de nuevo")
                 }
             })
-
     }
+
     return (
 
         <View style={styles.container}>
-            {/* <Image style={styles.stretch} source={logo} /> */}
             <TextInput
                 style={styles.input}
                 onChangeText={setFirstName}
                 value={firstName}
                 placeholder="Nombre"
-
                 autoCapitalize='words'
-
             />
             <TextInput
                 style={styles.input}
@@ -97,7 +91,6 @@ export default function LogIn({ navigation }) {
                 value={lastName}
                 placeholder="Apellidos"
                 autoCapitalize='words'
-
             />
             <TextInput
                 style={styles.input}
@@ -105,7 +98,6 @@ export default function LogIn({ navigation }) {
                 value={email}
                 placeholder="Email"
                 autoCapitalize='none'
-
             />
             <TextInput
                 style={styles.input}
@@ -114,7 +106,6 @@ export default function LogIn({ navigation }) {
                 placeholder="Contraseña"
                 secureTextEntry={true}
                 autoCapitalize='none'
-
             />
             <TextInput
                 style={styles.input}
@@ -123,7 +114,6 @@ export default function LogIn({ navigation }) {
                 placeholder="Confirma contraseña"
                 secureTextEntry={true}
                 autoCapitalize='none'
-
             />
             <View style={styles.buttonCreate}>
                 <Button
@@ -132,12 +122,9 @@ export default function LogIn({ navigation }) {
                     color="#fc6c27"
                     accessibilityLabel="Crear"
                     disabled={disableButton}
-
                 />
             </View>
-
         </View>
-
     );
 }
 
@@ -171,5 +158,4 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: "#fff"
     },
-
 });

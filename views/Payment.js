@@ -1,16 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
-import PaymentStripe from './PaymentStripe';
 
-export default function Payment({ route, navigation }) {
-    const { bill } = route.params;
+export default function Payment({ navigation }) {
 
-    const [month, setMonth] = React.useState("")
-    const [year, setYear] = React.useState("")
-    const [cvv, setCVV] = React.useState("")
-    const [number, setNumber] = React.useState("")
-    const [names, setNames] = React.useState("")
-    const [tip, setTip] = React.useState("")
+    const [ tip, setTip ] = React.useState("");
 
     return (
         <ScrollView>
@@ -26,44 +19,6 @@ export default function Payment({ route, navigation }) {
                     />
                 </View>
                 <Text style={styles.label}>Final: $240</Text>
-                {/* <PaymentStripe></PaymentStripe> */}
-                {/* <Text style={styles.strongLabel}>Nombre como en la tarjeta</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setNames}
-                    value={names}
-                />
-                <Text style={styles.strongLabel}>Número de tarjeta</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setNumber}
-                    value={number}
-                    keyboardType="numeric"
-                />
-                <View style={styles.rowContainer}>
-                    <TextInput
-                        style={styles.smallInput}
-                        onChangeText={setMonth}
-                        value={month}
-                        keyboardType="numeric"
-                        placeholder="Mes"
-                    />
-                    <TextInput
-                        style={styles.smallInput}
-                        onChangeText={setYear}
-                        value={year}
-                        keyboardType="numeric"
-                        placeholder="Año"
-                    />
-                    <TextInput
-                        style={styles.smallInput}
-                        onChangeText={setCVV}
-                        value={cvv}
-                        keyboardType="numeric"
-                        placeholder="CVV"
-                    />
-
-                </View>*/}
                 <View style={styles.buttonContainer}>
                     <Button
                         onPress={() => {
@@ -120,6 +75,5 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         marginTop: 20
-    }
-
+    },
 });

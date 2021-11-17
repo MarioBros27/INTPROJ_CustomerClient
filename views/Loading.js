@@ -5,12 +5,10 @@ import logo from '../assets/logo.png'
 export default function Loading() {
 
     return (
-
         <View style={styles.container}>
             <Image style={styles.stretch} source={logo} />
             <Text style={styles.text}>Cargando...</Text>
         </View>
-
     );
 }
 
@@ -31,5 +29,5 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize: 30
-    }
+    },
 });
