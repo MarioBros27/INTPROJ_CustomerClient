@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
@@ -24,14 +25,23 @@ export default function Restaurants({ navigation }) {
                 })
             }}>
                 <View style={styles.item}>
-                    <Text style={styles.title}>{item.name}</Text>
+                    <View style={styles.rowContainer}>
+                        <View style={[styles.leftContainer, { width: '85%' }]}>
+                            <Text style={styles.title}>{item.name}</Text>
+                        </View>
+                        <View style={styles.rightContainer}>
+                            { item.accountId != null && item.accountId != "" && 
+                                <MaterialIcons name="star" color={"#FFD872"} size={25} />
+                            }
+                        </View>
+                    </View>
                     <Text style={styles.subtitle}>{item.street} #{item.externalNumber}, {item.suburb}</Text>
                 </View>
             </TouchableOpacity>
             )  
     }; 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             <FlatList
                 data={restaurants}
                 renderItem={renderItem}
@@ -42,33 +52,40 @@ export default function Restaurants({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     item: {
         backgroundColor: '#fff',
-        padding: 15,
-        marginVertical: 8,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        borderLeftColor: '#FF96C5',
+        borderLeftWidth: 3,
+        marginTop: 15,
         marginHorizontal: 16,
-        borderColor: "#000",
-        borderWidth: 1,
-        borderRadius: 22
+        borderRadius: 10
     },
-    buttonContainer: {
-        marginBottom: 4
-    },
-    header: {
-        fontSize: 24,
-        marginBottom: 2,
-        fontWeight: "bold",
-        marginLeft: 20
-    },
+
     title: {
         fontSize: 18,
-        marginBottom: 2,
+        marginBottom: 5,
         fontWeight: "bold"
     },
+
     subtitle: {
-        fontSize: 12
+        fontSize: 14
     },
+
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 3
+    },
+
+    leftContainer: {
+        alignItems: 'flex-start'
+    },
+
+    rightContainer: {
+        alignItems: 'flex-end',
+        marginRight: 15
+    }, 
 });
