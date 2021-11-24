@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Button, StyleSheet, FlatList } from 'react-native';
+import { Text, View, Pressable, StyleSheet, FlatList } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
@@ -64,32 +65,39 @@ export default function Plate({ route }){
   return (
     <View style={styles.container}>
 
-      <View style={styles.header}>
-        <Text style={styles.nameRestaurante}>
-          {order.Restaurant.name}
-        </Text>
-      </View>
+      <Text style={styles.title}>
+        {order.Restaurant.name}
+      </Text>
       
         <FlatList 
           style={styles.menuList}
           data={plates}
           renderItem={({ item }) => (
-            <View style={styles.itemRow} >
-              <View style={styles.list}>
-                <Text style={styles.plateName}>{item.name}</Text>
-                <Text>MXN${item.price}</Text>
-                <Text style={styles.textDesc}>{item.description}</Text>
+
+            <>
+              <View style={styles.item}>
+                <View style={styles.rowContainer}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.itemTitle}>{item.name}</Text>
+                        <Text style={styles.subtitle}>{item.description}</Text>
+                    </View>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.price}>${item.price}</Text>
+                        <Pressable
+                          onPress={() => {addToOrder(item.id)}}
+                          style={styles.button}
+                        >
+                          <MaterialIcons name="add" color={"#fff"} size={20} />
+                        </Pressable>
+                    </View>
+                </View>
               </View>
 
-              <View style={{flexDirection:'row-reverse', alignSelf: 'center'}}>
-                <Button 
-                    onPress={() => {addToOrder(item.id)}}
-                    title="Agregar a la orden"
-                    color="green"
-                />
+              <View style={styles.breakLine}>
+
               </View>
-              
-            </View>
+            </>
+
         )}/>
     </View>
   )
@@ -98,59 +106,66 @@ export default function Plate({ route }){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    paddingVertical: 10,
+    paddingHorizontal: 20
   },
-  menuList: {
-    maxWidth: '100%',
-    alignSelf: 'auto', 
+
+  title: {
+    fontSize: 24,
+    marginBottom: 2,
+    fontWeight: "bold"
   },
-  header:{
-    flexDirection: 'column',
+
+  item: {
+    backgroundColor: '#fff',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    marginVertical: 6,
+    borderRadius: 15
   },
-  nameRestaurante: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    maxWidth: '100%',
+
+  breakLine: {
+    marginVertical: 3,
+    borderBottomColor: "#dedede",
+    borderBottomWidth: 1,
+    marginHorizontal: 8
+  },
+
+  itemTitle: {
     fontSize: 18,
-    marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 2,
+    fontWeight: "bold"
   },
-  itemRow: {
-    backgroundColor: '#FDFDF8',
-    marginLeft: 3,
-    marginRight: 3,
-    marginBottom: 15,
-    marginTop: 20,
-    borderRadius: 20,
-    padding: 20,
+
+  subtitle: {
+    fontSize: 16
   },
-  button: {
-    fontSize: 18,
+
+  price: {
+    fontSize: 20,
     fontWeight: 'bold',
-    backgroundColor: '#03A9F4',
-    elevation: 8,
+    color: '#00CDAC'
+  },
+
+  rowContainer: {
     flexDirection: 'row',
-    width: 30,
-    height: 30,
-    borderRadius: 30,
-    alignItems: 'center', 
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
-  list: {
-    flexDirection: 'column',
-    flex: 0.9, 
-    flexWrap: 'wrap',
+
+  titleContainer: {
+    width: '80%',
+    alignItems: 'flex-start'
   },
-  plateName: {
-    fontWeight: 'bold',
+
+  priceContainer: {
+    alignItems: 'flex-end',
+    marginRight: 15
   },
-  textDesc: {
-    textAlign: 'justify',
-  },
-  buttonText: {
-    fontWeight: 'bold',
-    fontSize: 15,
-    color: 'white',
-  },
+  
+  button: {
+    borderRadius: 100,
+    backgroundColor: "#00CDAC",
+    padding: 5
+  }
 });

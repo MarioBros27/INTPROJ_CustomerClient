@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 
@@ -28,68 +28,112 @@ export default function Reservaciones({navigation, user}) {
                 })
             }}>
                 <View style={styles.item}>
-                    <Text style={styles.title}>{item.Restaurant.name}</Text>
-                    <Text style={styles.subtitle}>Fecha y hora: {`${realDate.slice(4,21)}`}</Text>
+                    <View style={styles.rowContainer}>
+                        <View style={[styles.leftContainer, { width: '65%', marginRight: '5%' }]}>
+                            <Text style={styles.title}>{item.Restaurant.name}</Text>
+                        </View>
+                        <View style={styles.rightContainer}>
+                            { item.done && 
+                                <Text style={ styles.done }>Pagada</Text>
+                            }
+                            { !item.done && 
+                                <Text style={ styles.pending }>Pendiente</Text>
+                            }
+                        </View>
+                    </View>
+                    <Text style={styles.subtitle}><Text style={{ fontWeight: 'bold' }}>Fecha y hora: </Text>{`${realDate.slice(4,21)}`}</Text>
                 </View>
             </TouchableOpacity>
             )
     }; 
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>{ status && "Ordenes finalizadas" }</Text>
-            <Text>{ !status && "Ordenes no finalizadas" }</Text>
+        <SafeAreaView>
+            <View style={styles.buttonContainer}>
+                <Pressable
+                    onPress={() => {
+                        toggleSwitch()
+                    }}
+                    style={styles.button}
+                    accessibilityLabel="Actualizar"
+                >
+                    <Text style={{ color: '#fff' }}>Filtrar por otro estado</Text>
+                </Pressable>
+            </View>
             <FlatList
                 data={orders}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={() => {
-                        toggleSwitch()
-                    }}
-                    title = {"Filter by another status"}
-                    color="green"
-                    accessibilityLabel="Actualizar"
-                />
-            </View>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: "column",
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20
-    },
     item: {
         backgroundColor: '#fff',
-        padding: 15,
-        marginVertical: 8,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        borderLeftColor: "#EEAE54",
+        borderLeftWidth: 3,
+        marginTop: 15,
+        marginBottom: 10,
         marginHorizontal: 16,
-        borderColor: "#000",
-        borderWidth: 1,
-        borderRadius: 22
+        borderRadius: 10
     },
-    buttonContainer: {
-        marginBottom: 4
+
+    pending: {
+        padding: 5,
+        marginLeft: 5,
+        borderRadius: 5,
+        backgroundColor: "#FBA490",
+        color: "#B83253"
     },
-    header: {
-        fontSize: 24,
-        marginBottom: 2,
-        fontWeight: "bold",
-        marginLeft: 20
+
+    done: {
+        padding: 5,
+        marginLeft: 5,
+        borderRadius: 5,
+        backgroundColor: "#9DD7BF",
+        color: "#315e26"
     },
+
     title: {
         fontSize: 18,
-        marginBottom: 2,
+        marginBottom: 5,
         fontWeight: "bold"
     },
+
     subtitle: {
-        fontSize: 12
+        fontSize: 14
     },
+    
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 3
+    },
+
+    leftContainer: {
+        alignItems: 'flex-start'
+    },
+
+    rightContainer: {
+        alignItems: 'flex-end',
+        marginRight: 15
+    }, 
+
+    buttonContainer: {
+        alignItems: 'flex-end',
+        marginRight: 16
+    },
+
+    button: {
+        marginTop: 10,
+        backgroundColor: "#EEAE54",
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 15
+    }
 });
