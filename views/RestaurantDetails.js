@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        padding: 20
+        margin: 20
     },
 
     title: {
@@ -127,6 +127,8 @@ const styles = StyleSheet.create({
     },
 
     primaryButton: {
-        backgroundColor: '#FF5768'
+        backgroundColor: '#FF5768',
+        borderWidth: 2,
+        borderColor: '#FF5768'
     }
 });
