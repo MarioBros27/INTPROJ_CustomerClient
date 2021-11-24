@@ -19,60 +19,89 @@ export default function ViewPlate({ route }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.nameRestaurante}>
-          {restaurante.name}
-        </Text>
-        
-          <FlatList
-            data={plates}
-            renderItem={({item}) => (
-              <View style={styles.menuList}>
-                <Text style={styles.plateName}>{item.name}</Text>
-                <Text>MXN${item.price}</Text>
-                <Text style={styles.textDesc}>{item.description}</Text>
+      <Text style={{ fontSize: 24, marginBottom: 10, fontWeight: "bold" }}>
+        {restaurante.name}
+      </Text>
+      
+        <FlatList
+          data={plates}
+          renderItem={({item}) => (
+            <>
+              <View style={styles.item}>
+                <View style={styles.rowContainer}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>{item.name}</Text>
+                        <Text style={styles.subtitle}>{item.description}</Text>
+                    </View>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.price}>${item.price}</Text>
+                    </View>
+                </View>
               </View>
-          )}/>
-      </View>
+
+              <View style={styles.breakLine}>
+
+              </View>
+            </>
+        )}/>
     </View>
+
+    
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: '#E8EAED',
   },
-  header:{
-    flexDirection: 'column',
+
+  item: {
+    backgroundColor: '#fff',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    marginVertical: 6,
+    borderRadius: 15
   },
-  menuList: {
-    maxWidth: '100%',
-    alignSelf: 'auto',
+
+  breakLine: {
+    marginVertical: 3,
+    borderBottomColor: "#dedede",
+    borderBottomWidth: 1,
+    marginHorizontal: 8
+  },
+
+  title: {
     fontSize: 18,
-    flexDirection: 'column',
-    textAlign: 'left',
-    backgroundColor: '#FDFDF8',
-    marginLeft: 3,
-    marginRight: 3,
-    marginBottom: 15,
-    marginTop: 20,
-    borderRadius: 20,
-    padding: 25,
+    marginBottom: 2,
+    fontWeight: "bold"
   },
-  plateName: {
+
+  subtitle: {
+    fontSize: 16
+  },
+
+  price: {
+    fontSize: 20,
     fontWeight: 'bold',
+    color: '#FF5768'
   },
-  textDesc: {
-    textAlign: 'justify',
+
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  nameRestaurante: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    maxWidth: '100%',
-    fontSize: 18,
-    marginTop: 20,
-    marginBottom: 10,
+
+  titleContainer: {
+    width: '80%',
+    alignItems: 'flex-start'
   },
+
+  priceContainer: {
+    alignItems: 'flex-end',
+    marginRight: 15
+  }
 });
