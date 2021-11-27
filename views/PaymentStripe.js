@@ -39,7 +39,7 @@ export default function PaymentStripe({ route, user }) {
                     flex-direction: column;
                     height: 200px;
                     justify-content: space-around;
-                    background-color: #3D097F;
+                    background-color: #ddd;
                     border-radius: 20px;
                     padding: 10px;
                     padding-top: 20px;
@@ -100,7 +100,8 @@ export default function PaymentStripe({ route, user }) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="products-info">
-                        Product Info: ${order.Restaurant.name} - ${order.checkIn.slice(8,10)}/${order.checkIn.slice(5,7)}/${order.checkIn.slice(0,4)} ${order.checkIn.slice(11,16)}
+                        <p style="font-size: 24px; font-weight: bold; margin-bottom: 5; text-align: left">${order.Restaurant.name}</p>
+                        <p>${new Date(order.checkIn).toString().slice(4, 21)}</p>
                         Amount: ${total}
                     </div>
                 </div>
