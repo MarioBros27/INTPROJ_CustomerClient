@@ -19,17 +19,18 @@ export default function Pagos({ navigation, user }) {
     const renderItem = ({ item }) => {
 
         return(
-            <TouchableOpacity onPress={() => {
-                navigation.navigate("Pago", {
-                    item: item
-                })
-            }}>
-                <View style={styles.item}>
-                    <Text style={styles.title}>{item.Bill.Restaurant.name} - {`${item.paymentDate.slice(8,10)}/${item.paymentDate.slice(5,7)}/${item.paymentDate.slice(0,4)} ${item.paymentDate.slice(11,16)}`}</Text>
-                    <Text style={styles.subtitle}>${item.Bill.total}</Text>
-                    <Text style={styles.subtitle}>Número de referencia: {item.referenceId}</Text>
+            <View style={styles.item}>
+                <View style={styles.rowContainer}>
+                    <View style={[styles.leftContainer, { width: '60%' }]}>
+                        <Text style={styles.title}>{item.Bill.Restaurant.name}</Text>
+                    </View>
+                    <View style={[styles.rightContainer, { width: '30%' } ]}>
+                        <Text style={styles.price}>${item.Bill.total}</Text>
+                    </View>
                 </View>
-            </TouchableOpacity>
+                <Text style={styles.subtitle}><Text style={{fontWeight: 'bold'}}>Fecha y hora:</Text> {new Date(Date.parse(item.paymentDate)).toString().slice(4,21)}</Text>
+                <Text style={styles.subtitle}><Text style={{fontWeight: 'bold'}}>Referencia:</Text> {item.referenceId} </Text>
+            </View>
         )
     };
 
@@ -45,33 +46,50 @@ export default function Pagos({ navigation, user }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     item: {
         backgroundColor: '#fff',
-        padding: 15,
-        marginVertical: 8,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        borderLeftColor: '#FF6F68',
+        borderLeftWidth: 3,
+        marginTop: 15,
+        marginBottom: 10,
         marginHorizontal: 16,
-        borderColor: "#000",
-        borderWidth: 1,
-        borderRadius: 22
+        borderRadius: 10
     },
-    buttonContainer: {
-        marginBottom: 4
+
+    price: {
+        padding: 5,
+        marginLeft: 5,
+        borderRadius: 5,
+        backgroundColor: "#8DD7BF",
+        color: "#476930",
+        fontWeight: 'bold'
     },
-    header: {
-        fontSize: 24,
-        marginBottom: 2,
-        fontWeight: "bold",
-        marginLeft: 20
-    },
+
     title: {
         fontSize: 18,
-        marginBottom: 2,
+        marginBottom: 5,
         fontWeight: "bold"
     },
+
     subtitle: {
-        fontSize: 12
+        fontSize: 14
     },
+    
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 3
+    },
+
+    leftContainer: {
+        alignItems: 'flex-start'
+    },
+
+    rightContainer: {
+        alignItems: 'flex-end',
+        marginRight: 15
+    }, 
 });
