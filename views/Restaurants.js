@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, Pressable, FlatList, TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ const appSettings = require('../app-settings.json');
 export default function Restaurants({ navigation }) {
 
     const [ restaurants, setRestaurants ] = useState([]);
+    const [ refresh, setRefresh ] = useState([]);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/restaurants`)
@@ -15,7 +16,7 @@ export default function Restaurants({ navigation }) {
                 setRestaurants(response.data)
             })
             .catch(error => alert(error))
-    },[])
+    },[refresh])
 
     const renderItem = ({ item }) => {
         return (
@@ -42,6 +43,14 @@ export default function Restaurants({ navigation }) {
     }; 
     return (
         <SafeAreaView>
+            <View style={{ marginTop: 15, marginRight: 15, alignItems: 'flex-end'}}>
+                <Pressable
+                    style={{ padding: 10, backgroundColor: '#00b0ba', borderRadius: 100}}
+                    onPress={() => setRefresh(!refresh)}
+                >
+                    <MaterialIcons style={{color: '#fff'}} name="refresh" color={"#00CDAC"} size={20} />
+                </Pressable>
+            </View>
             <FlatList
                 data={restaurants}
                 renderItem={renderItem}
