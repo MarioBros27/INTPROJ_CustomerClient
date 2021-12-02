@@ -8,7 +8,7 @@ const appSettings = require('../app-settings.json');
 export default function Restaurants({ navigation }) {
 
     const [ restaurants, setRestaurants ] = useState([]);
-    const [ refresh, setRefresh ] = useState([]);
+    const [ refresh, setRefresh ] = useState(false);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/restaurants`)

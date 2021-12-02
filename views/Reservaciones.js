@@ -8,7 +8,7 @@ const appSettings = require('../app-settings.json');
 export default function Reservaciones({ user}) {
 
     const [ reservations, setReservations ] = useState([]);
-    const [ refresh, setRefresh ] = useState([]);
+    const [ refresh, setRefresh ] = useState(false);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/reservations?customerId=${user.postgresId}`)
