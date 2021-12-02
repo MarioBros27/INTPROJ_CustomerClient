@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, Pressable } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const appSettings = require('../app-settings.json');
 
 export default function Pagos({ navigation, user }) {
 
     const [ payments, setPayments ] = useState([]);
+    const [ refresh, setRefresh ] = useState(false);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/payments?customerId=${user.postgresId}`)
@@ -14,7 +16,7 @@ export default function Pagos({ navigation, user }) {
                 setPayments(response.data)
             })
             .catch(error => alert(`There was an error retrieving the user payments. Error details ${error}`))
-    }, [])
+    }, [refresh])
     
     const renderItem = ({ item }) => {
 
@@ -36,6 +38,14 @@ export default function Pagos({ navigation, user }) {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={{ marginTop: 15, marginRight: 15, alignItems: 'flex-end'}}>
+                <Pressable
+                    style={{ padding: 10, backgroundColor: '#00b0ba', borderRadius: 100}}
+                    onPress={() => setRefresh(!refresh)}
+                >
+                    <MaterialIcons style={{color: '#fff'}} name="refresh" color={"#00CDAC"} size={20} />
+                </Pressable>
+            </View>
             <FlatList
                 data={payments}
                 renderItem={renderItem}
