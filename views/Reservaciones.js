@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, Pressable } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 
 const appSettings = require('../app-settings.json');
@@ -7,6 +8,7 @@ const appSettings = require('../app-settings.json');
 export default function Reservaciones({ user}) {
 
     const [ reservations, setReservations ] = useState([]);
+    const [ refresh, setRefresh ] = useState([]);
 
     useEffect(() => {
         axios.get(`${appSettings['backend-host']}/reservations?customerId=${user.postgresId}`)
@@ -14,7 +16,7 @@ export default function Reservaciones({ user}) {
                 setReservations(response.data)
             })
             .catch(error => alert(error))
-    },[])
+    },[refresh])
 
     const renderItem = ({ item }) => {
         const realDate = new Date(Date.parse(item.appointment)).toString();
@@ -44,6 +46,14 @@ export default function Reservaciones({ user}) {
 
     return (
         <SafeAreaView>
+            <View style={{ marginTop: 15, marginRight: 15, alignItems: 'flex-end'}}>
+                <Pressable
+                    style={{ padding: 10, backgroundColor: '#00b0ba', borderRadius: 100}}
+                    onPress={() => setRefresh(!refresh)}
+                >
+                    <MaterialIcons style={{color: '#fff'}} name="refresh" color={"#00CDAC"} size={20} />
+                </Pressable>
+            </View>
             <FlatList
                 data={reservations}
                 renderItem={renderItem}
